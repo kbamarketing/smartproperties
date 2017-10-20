@@ -56,9 +56,9 @@ class SmartProperties_PropertyModel extends SmartProperties_BaseModel {
 		$property->setAttribute('title', $block->getFieldValue('theTitle'));
 		$property->setAttribute('defaultBedrooms', $block->getContent()->getAttribute('numberOfBedrooms'));
 		$property->setAttribute('hasFloorplan', $block->getFieldValue('floorplan')->first() ? true : false);
+		$property->setAttribute('floorplan', $block->getFieldValue('floorplan')->first());
 		
 		$property->setPrivateAttribute('block', $block);
-		$property->setPrivateAttribute('floorplan', $block->getFieldValue('floorplan')->first());
 		$property->setPrivateAttribute('plots', new Collection( array_map( function( $plot ) use($property) {
 			return Plot::compile( $plot, clone $property );
 		}, $block->getFieldValue('plots') ) ) );
