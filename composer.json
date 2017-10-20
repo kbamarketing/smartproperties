@@ -1,0 +1,11 @@
+{
+	"name": "kbamarketing/smartproperties",
+	"description": "A plugin to build complex property relationships",
+	"type": "craft-plugin",
+	"authors": [
+		{
+			"name": "Terence O'Donoghue",
+			"homepage": "https://creativelittledots.co.uk"
+		}
+	]
+}

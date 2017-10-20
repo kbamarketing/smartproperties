@@ -1,0 +1,9 @@
+{% import "_includes/forms" as forms %}
+
+{{ forms.lightswitchField({
+    id: 'spUseCache',
+    name: 'spUseCache',
+    label: 'Use Cache?'|t,
+    on: settings.spUseCache,
+    instructions: 'Tell the plugin whether or not to use the compiled cache.'|t
+}) }}
