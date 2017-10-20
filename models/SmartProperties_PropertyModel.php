@@ -6,11 +6,10 @@ use Craft\SmartProperties_PlotModel as Plot;
 use Craft\SmartProperties_CollectionModel as Collection;
 use Craft\SmartProperties_HasBedroomsModel as HasBedrooms;
 use Craft\SmartProperties_HasPlotsModel as HasPlots;
-use Craft\SmartProperties_HasBlockModel as HasBlock;
 
 class SmartProperties_PropertyModel extends SmartProperties_BaseModel {
 	
-	use HasPlots, HasBlock, HasBedrooms {
+	use HasPlots, HasBedrooms {
 		getBedrooms as getTraitBedrooms;
 	}
 	
@@ -53,15 +52,18 @@ class SmartProperties_PropertyModel extends SmartProperties_BaseModel {
 		$property->setAttribute('blockId', $block->getAttribute('id'));
 		$property->setAttribute('blockType', $block->type->getAttribute('handle'));
 		$property->setAttribute('entryId', $entryId);
-		$property->setPrivateAttribute('block', $block);
 		$property->setAttribute('propertyType', array_values(array_filter([$block->getContent()->getAttribute('propertyType'), Plot::APARTMENT_LABEL]))[0]);
 		$property->setAttribute('title', $block->getFieldValue('theTitle'));
 		$property->setAttribute('defaultBedrooms', $block->getContent()->getAttribute('numberOfBedrooms'));
-		$property->setPrivateAttribute('floorplan', $block->getFieldValue('floorplan')->first());
 		$property->setAttribute('hasFloorplan', $block->getFieldValue('floorplan')->first() ? true : false);
+		
+		$property->setPrivateAttribute('block', $block);
+		$property->setPrivateAttribute('floorplan', $block->getFieldValue('floorplan')->first());
 		$property->setPrivateAttribute('plots', new Collection( array_map( function( $plot ) use($property) {
 			return Plot::compile( $plot, clone $property );
 		}, $block->getFieldValue('plots') ) ) );
+		
+		
 		$property->setPrivateAttribute('availablePlots', $property->getAvailablePlots());
 		$property->setAttribute('bedrooms', $property->getBedrooms());
 		$property->setAttribute('availableBedrooms', $property->getAvailableBedrooms());

@@ -9,7 +9,7 @@ trait SmartProperties_HasPlotsModel {
 	
 	protected function getPlots() {
 		
-		$plots = $this->getPrivateAttribute('plots');
+		$plots = $this->getProperty('plots');
 		
 		return $plots ? $plots : new Collection();
 		
@@ -29,7 +29,7 @@ trait SmartProperties_HasPlotsModel {
 	
 	protected function getAvailablePlots() {
 		
-		$plots = $this->getPrivateAttribute('availablePlots');
+		$plots = $this->getProperty('availablePlots');
 		
 		return $plots ? $plots : $this->getPlots()->filter(function(Plot $plot) {
 				

@@ -43,7 +43,16 @@ abstract class SmartProperties_ContainerModel extends SmartProperties_BaseModel 
 		$container->setAttribute('slug', $entry->slug);
 		$container->setAttribute('title', $entry->title);
 		$container->setPrivateAttribute('properties', $container->getProperties( $entry ));
-		$container->setPrivateAttribute('plots', $container->_getPlots());
+		
+		$plots = $this->getChildCollection( 'properties', 'plots' );
+		
+		$plots = $plots->sort(function($a, $b) {
+				
+			return $a->getAttribute('data')->getAttribute('plotNumber') > $b->getAttribute('data')->getAttribute('plotNumber') ? 1 : ( $a->getAttribute('data')->getAttribute('plotNumber') == $b->getAttribute('data')->getAttribute('plotNumber') ? 0 : -1 );
+			
+		});
+		
+		$container->setPrivateAttribute('plots', $plots);
 		
 		if( ! $isChild ) {
 			
@@ -92,20 +101,6 @@ abstract class SmartProperties_ContainerModel extends SmartProperties_BaseModel 
 	protected function getProperties( EntryModel $entry ) {
 		
 		return [];
-		
-	}
-	
-	protected function _getPlots() {
-		
-		$plots = $this->getChildCollection( 'properties', 'plots' );
-		
-		$plots = $plots->sort(function($a, $b) {
-				
-			return $a->getAttribute('data')->getAttribute('plotNumber') > $b->getAttribute('data')->getAttribute('plotNumber') ? 1 : ( $a->getAttribute('data')->getAttribute('plotNumber') == $b->getAttribute('data')->getAttribute('plotNumber') ? 0 : -1 );
-			
-		});
-		
-		return $plots;
 		
 	}
 	

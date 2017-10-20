@@ -5,13 +5,12 @@ namespace Craft;
 use Craft\SmartProperties_CollectionModel as Collection;
 use Craft\SmartProperties_HasBedroomsModel as HasBedrooms;
 use Craft\SmartProperties_HasPlotsModel as HasPlots;
-use Craft\SmartProperties_HasBlockModel as HasBlock;
 use Craft\SmartProperties_PlotModel as Plot;
 use Craft\SmartProperties_PropertyModel as Property;
 
 class SmartProperties_FloorModel extends SmartProperties_BaseModel {
 	
-	use HasBedrooms, HasPlots, HasBlock;
+	use HasBedrooms, HasPlots;
 	
 	protected $attributes = array(
 		'id' => AttributeType::Number,
@@ -37,8 +36,8 @@ class SmartProperties_FloorModel extends SmartProperties_BaseModel {
 		
 		$floor->setPrivateAttribute('plots', $plots);
 		
-		$floor->setAttribute('title', $floor->getTitle( $block ));
-		$floor->setAttribute('floorplan', $floor->getFloorplan( $block ));
+		$floor->setAttribute('title', static::determineTitle( $block ));
+		$floor->setAttribute('floorplan', $block->getContent()->getAttribute('floorplan') ? $block->getFieldValue('floorplan')->first() : ( $this->getPlots()->first()->getAttribute('floorplan') ? $this->getPlots()->first()->getAttribute('floorplan') : null ));
 		$floor->setAttribute('availableProperties', $floor->getAvailableProperties()->map(function(Property $property) {
 			return [
 				'id' => $property->getAttribute('id'),
@@ -53,19 +52,13 @@ class SmartProperties_FloorModel extends SmartProperties_BaseModel {
 		$floor->setAttribute('minBedrooms', $floor->getMinBedrooms());
 		$floor->setAttribute('maxBedrooms', $floor->getMaxBedrooms());
 		$floor->setAttribute('hasVariatingBedrooms', $floor->hasVariatingBedrooms());
-		$floor->setAttribute('bedroomsHtml', $floor->getBedroomsHtml());
+		$floor->setAttribute('bedroomsHtml', $this->getAvailableNumericBedrooms()->concat());
 		$floor->setAttribute('availableBedroomsHtml', $floor->getAvailableBedroomsHtml());
 		
 		return $floor;
 		
 	}
 
-	protected function getBedroomsHtml() {
-		
-		return $this->getAvailableNumericBedrooms()->concat();
-		
-	}
-	
 	protected function getAvailableProperties() {
 		
 		return (new Collection($this->getAvailablePlots()->map(function(Plot $plot) {
@@ -73,18 +66,6 @@ class SmartProperties_FloorModel extends SmartProperties_BaseModel {
 			return Property::compile( $plot->getPrivateAttribute('block'), $plot->getPrivateAttribute('entryId') );
 			
 		})))->unique()->keyBy('propertyType')->sort();
-		
-	}
-	
-	protected function getFloorplan( MatrixBlockModel $block ) {
-		
-		return $block->getContent()->getAttribute('floorplan') ? $block->getFieldValue('floorplan')->first() : ( $this->getPlots()->first()->getAttribute('floorplan') ? $this->getPlots()->first()->getAttribute('floorplan') : null );
-		
-	}
-	
-	protected function getTitle( MatrixBlockModel $block ) {
-		
-		return static::determineTitle( $block );
 		
 	}
 	

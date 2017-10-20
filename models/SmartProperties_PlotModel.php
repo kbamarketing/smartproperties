@@ -3,13 +3,10 @@
 namespace Craft;
 
 use Craft\SmartProperties_CollectionModel as Collection;
-use Craft\SmartProperties_HasBlockModel as HasBlock;
 use Craft\SmartProperties_FlexibleModel as Model;
 use Craft\SmartProperties_PropertyModel as Property;
 
 class SmartProperties_PlotModel extends SmartProperties_BaseModel {
-	
-	use HasBlock;
 	
 	const SOLD_LABEL = 'Sold';
 	const RESERVED_LABEL = 'Reserved';
@@ -46,29 +43,36 @@ class SmartProperties_PlotModel extends SmartProperties_BaseModel {
 		
 		$plot = new static();
 		
+		$plot->setPrivateAttribute('block', $property->getPrivateAttribute('block'));
+		
 		$data = new Model($data);
 		
 		$plot->setAttribute('data', $data);
-		
 		$plot->setAttribute('id', $data->getAttribute('plotNumber'));
-		$plot->setPrivateAttribute('block', $property->getPrivateAttribute('block'));
 		$plot->setAttribute('blockId', $property->getAttribute('blockId'));
 		$plot->setAttribute('entryId', $property->getAttribute('entryId'));
 		$plot->setAttribute('title', $property->getAttribute('title'));
 		$plot->setAttribute('propertyType', $property->getAttribute('propertyType'));
 		$plot->setAttribute('propertyId', $property->getAttribute('id'));
 		$plot->setAttribute('floor', $data->getAttribute('floor') ? $data->getAttribute('floor') : $property->getAttribute('title'));
-		$plot->setAttribute('numberOfBedrooms', $plot->getNumberOfBedrooms( $property ));
 		
-		$plot->setAttribute('price', $plot->getPrice());
-		$plot->setAttribute('formattedPrice', $plot->getFormattedPrice());
+		$bedrooms = $this->getAttribute('data')->getAttribute('numberOfBedrooms');
+		$plot->setAttribute('numberOfBedrooms', is_numeric( $bedrooms ) ? $bedrooms : max($property->getAttribute('defaultBedrooms'), 1));
 		
-		$plot->setAttribute('dimensions', $plot->getDimensions( $property ));
+		$plot->setAttribute('price', $this->getFormatter()->parse( $this->getAttribute('data')->getAttribute('availability') ));
+		$plot->setAttribute('formattedPrice', $this->getProperty('price') ? $this->formatCurrency( $this->getProperty('price') ) : null);
+		
+		$dimensions = new Collection( $property->getAttribute('dimensions') );
+		
+		$plot->setAttribute('dimensions', $dimensions->filter(function(array $dimension) {
+			
+			return ! empty( $dimension['plotNumber'] ) && $dimension['plotNumber'] == $this->getAttribute('data')->getAttribute('plotNumber');
+			
+		}));
 		
 		$plot->setAttribute('isAvailable', $plot->getAttribute('price') ? true : false);
 		$plot->setAttribute('toBeReleased', $plot->is(static::TO_BE_RELEASED_LABEL));
 		$plot->setAttribute('hasDimensions', $plot->getAttribute('dimensions')->count() ? true : false);
-		
 		$plot->setAttribute('hasFloorplan', $property->getAttribute('hasFloorplan'));
 		
 		return $plot;
@@ -87,41 +91,9 @@ class SmartProperties_PlotModel extends SmartProperties_BaseModel {
 		
 	}
 	
-	protected function getPrice() {
-
-		return $this->getFormatter()->parse( $this->getAttribute('data')->getAttribute('availability') );
-		
-	}
-	
-	protected function getFormattedPrice() {
-		
-		return $this->getPrice() ? $this->formatCurrency( $this->getPrice() ) : null;
-		
-	}
-	
 	protected function getFloors() {
 		
 		return property_exists($this->getAttribute('data'), 'floor') ? $this->getAttribute('data')->getAttribute('floor') : array_values(array_filter([$this->getBlock()->getFieldValue('floor'), $this->floor]))[0];
-		
-	}
-	
-	protected function getNumberOfBedrooms( Property $property ) {
-		
-		$bedrooms = $this->getAttribute('data')->getAttribute('numberOfBedrooms');
-		
-		return is_numeric( $bedrooms ) ? $bedrooms : max($property->getAttribute('defaultBedrooms'), 1);
-		
-	}
-	
-	protected function getDimensions( Property $property ) {
-		
-		$dimensions = new Collection( $property->getAttribute('dimensions') );
-			
-		return $dimensions->filter(function(array $dimension) {
-			
-			return ! empty( $dimension['plotNumber'] ) && $dimension['plotNumber'] == $this->getAttribute('data')->getAttribute('plotNumber');
-			
-		});
 		
 	}
 	
