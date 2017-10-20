@@ -56,17 +56,17 @@ class SmartProperties_PlotModel extends SmartProperties_BaseModel {
 		$plot->setAttribute('propertyId', $property->getAttribute('id'));
 		$plot->setAttribute('floor', $data->getAttribute('floor') ? $data->getAttribute('floor') : $property->getAttribute('title'));
 		
-		$bedrooms = $this->getAttribute('data')->getAttribute('numberOfBedrooms');
+		$bedrooms = $plot->getAttribute('data')->getAttribute('numberOfBedrooms');
 		$plot->setAttribute('numberOfBedrooms', is_numeric( $bedrooms ) ? $bedrooms : max($property->getAttribute('defaultBedrooms'), 1));
 		
-		$plot->setAttribute('price', $this->getFormatter()->parse( $this->getAttribute('data')->getAttribute('availability') ));
-		$plot->setAttribute('formattedPrice', $this->getProperty('price') ? $this->formatCurrency( $this->getProperty('price') ) : null);
+		$plot->setAttribute('price', $plot->getFormatter()->parse( $plot->getAttribute('data')->getAttribute('availability') ));
+		$plot->setAttribute('formattedPrice', $plot->getProperty('price') ? $plot->formatCurrency( $plot->getProperty('price') ) : null);
 		
 		$dimensions = new Collection( $property->getAttribute('dimensions') );
 		
 		$plot->setAttribute('dimensions', $dimensions->filter(function(array $dimension) {
 			
-			return ! empty( $dimension['plotNumber'] ) && $dimension['plotNumber'] == $this->getAttribute('data')->getAttribute('plotNumber');
+			return ! empty( $dimension['plotNumber'] ) && $dimension['plotNumber'] == $plot->getAttribute('data')->getAttribute('plotNumber');
 			
 		}));
 		

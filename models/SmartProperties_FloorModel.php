@@ -37,7 +37,7 @@ class SmartProperties_FloorModel extends SmartProperties_BaseModel {
 		$floor->setPrivateAttribute('plots', $plots);
 		
 		$floor->setAttribute('title', static::determineTitle( $block ));
-		$floor->setAttribute('floorplan', $block->getContent()->getAttribute('floorplan') ? $block->getFieldValue('floorplan')->first() : ( $this->getPlots()->first()->getAttribute('floorplan') ? $this->getPlots()->first()->getAttribute('floorplan') : null ));
+		$floor->setAttribute('floorplan', $block->getContent()->getAttribute('floorplan') ? $block->getFieldValue('floorplan')->first() : ( $floor->getPlots()->first()->getAttribute('floorplan') ? $floor->getPlots()->first()->getAttribute('floorplan') : null ));
 		$floor->setAttribute('availableProperties', $floor->getAvailableProperties()->map(function(Property $property) {
 			return [
 				'id' => $property->getAttribute('id'),
@@ -52,7 +52,7 @@ class SmartProperties_FloorModel extends SmartProperties_BaseModel {
 		$floor->setAttribute('minBedrooms', $floor->getMinBedrooms());
 		$floor->setAttribute('maxBedrooms', $floor->getMaxBedrooms());
 		$floor->setAttribute('hasVariatingBedrooms', $floor->hasVariatingBedrooms());
-		$floor->setAttribute('bedroomsHtml', $this->getAvailableNumericBedrooms()->concat());
+		$floor->setAttribute('bedroomsHtml', $floor->getAvailableNumericBedrooms()->concat());
 		$floor->setAttribute('availableBedroomsHtml', $floor->getAvailableBedroomsHtml());
 		
 		return $floor;

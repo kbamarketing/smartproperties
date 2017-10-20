@@ -44,7 +44,7 @@ abstract class SmartProperties_ContainerModel extends SmartProperties_BaseModel 
 		$container->setAttribute('title', $entry->title);
 		$container->setPrivateAttribute('properties', $container->getProperties( $entry ));
 		
-		$plots = $this->getChildCollection( 'properties', 'plots' );
+		$plots = $container->getChildCollection( 'properties', 'plots' );
 		
 		$plots = $plots->sort(function($a, $b) {
 				
