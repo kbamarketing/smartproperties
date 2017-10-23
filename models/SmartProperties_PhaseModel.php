@@ -49,7 +49,7 @@ class SmartProperties_PhaseModel extends SmartProperties_ContainerModel {
 				
 				$title = PropertyFloor::determineTitle( $block );
 			
-				return strpos( $title, $plot->getAttribute('floor') ) === 0;	
+				return strpos( strtolower( $title ), strtolower( $plot->getAttribute('floor') ) ) === 0;	
 				
 			} );
 			
