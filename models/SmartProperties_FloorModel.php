@@ -17,6 +17,7 @@ class SmartProperties_FloorModel extends SmartProperties_BaseModel {
 		'blockId' => AttributeType::Number,
 		'title' => AttributeType::String,
 		'floorplan' => AttributeType::String,
+		'image' => AttributeType::String,
 		'availableProperties' => AttributeType::Mixed,
 		'properties' => AttributeType::Mixed,
 		'availablePlots' => AttributeType::Mixed,
@@ -38,7 +39,8 @@ class SmartProperties_FloorModel extends SmartProperties_BaseModel {
 		$floor->setPrivateAttribute('plots', $plots);
 		
 		$floor->setAttribute('title', static::determineTitle( $block ));
-		$floor->setAttribute('floorplan', $block->getContent()->getAttribute('floorplan') ? $block->getFieldValue('floorplan')->first() : ( $floor->getPlots()->first()->getProperty('floorplan') ? $floor->getPlots()->first()->getProperty('floorplan') : null ));
+		$floor->setAttribute('image', $block->getContent()->getAttribute('image') ? $block->getFieldValue('image')->first() : null);
+		$floor->setAttribute('floorplan', $floor->getPlots()->first()->getProperty('floorplan') ? $floor->getPlots()->first()->getProperty('floorplan') : null );
 		$floor->setAttribute('availableProperties', $floor->getAvailableProperties()->map(array($floor, 'mapProperty')));
 		$floor->setAttribute('properties', $floor->getProperties()->map(array($floor, 'mapProperty')));
 		$floor->setAttribute('availablePlots', $floor->getAvailablePlots());
