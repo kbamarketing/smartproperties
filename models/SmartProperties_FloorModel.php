@@ -55,7 +55,7 @@ class SmartProperties_FloorModel extends SmartProperties_BaseModel {
 		
 	}
 	
-	protected function mapProperty(Property $property) {
+	public function mapProperty(Property $property) {
 		
 		return [
 			'id' => $property->getAttribute('id'),
