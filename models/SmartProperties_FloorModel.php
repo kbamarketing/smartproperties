@@ -39,8 +39,8 @@ class SmartProperties_FloorModel extends SmartProperties_BaseModel {
 		$floor->setPrivateAttribute('plots', $plots);
 		
 		$floor->setAttribute('title', static::determineTitle( $block ));
-		$floor->setAttribute('image', $block->getContent()->getAttribute('image') ? $block->getFieldValue('image')->first() : null);
 		$floor->setAttribute('floorplan', $floor->getPlots()->first()->getProperty('floorplan') ? $floor->getPlots()->first()->getProperty('floorplan') : null );
+		$floor->setAttribute('image', $block->getContent()->getAttribute('image') ? $block->getFieldValue('image')->first() : $this->getAttribute('floorplan'));
 		$floor->setAttribute('availableProperties', $floor->getAvailableProperties()->map(array($floor, 'mapProperty')));
 		$floor->setAttribute('properties', $floor->getProperties()->map(array($floor, 'mapProperty')));
 		$floor->setAttribute('availablePlots', $floor->getAvailablePlots());
