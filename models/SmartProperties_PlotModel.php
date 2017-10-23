@@ -44,6 +44,7 @@ class SmartProperties_PlotModel extends SmartProperties_BaseModel {
 		$plot = new static();
 		
 		$plot->setPrivateAttribute('block', $property->getPrivateAttribute('block'));
+		$plot->setPrivateAttribute('floorplan', $property->getAttribute('floorplan'));
 		
 		$data = new Model($data);
 		
