@@ -18,6 +18,7 @@ class SmartProperties_FloorModel extends SmartProperties_BaseModel {
 		'title' => AttributeType::String,
 		'floorplan' => AttributeType::String,
 		'availableProperties' => AttributeType::Mixed,
+		'properties' => AttributeType::Mixed,
 		'availablePlots' => AttributeType::Mixed,
 		'availablePlotsHtml' => AttributeType::String,
 		'bedrooms' => AttributeType::Number,
@@ -38,13 +39,8 @@ class SmartProperties_FloorModel extends SmartProperties_BaseModel {
 		
 		$floor->setAttribute('title', static::determineTitle( $block ));
 		$floor->setAttribute('floorplan', $block->getContent()->getAttribute('floorplan') ? $block->getFieldValue('floorplan')->first() : ( $floor->getPlots()->first()->getAttribute('floorplan') ? $floor->getPlots()->first()->getAttribute('floorplan') : null ));
-		$floor->setAttribute('availableProperties', $floor->getAvailableProperties()->map(function(Property $property) {
-			return [
-				'id' => $property->getAttribute('id'),
-				'propertyType' => $property->getAttribute('propertyType'),
-				'blockType' => $property->getAttribute('blockType')
-			];
-		}));
+		$floor->setAttribute('availableProperties', $floor->getAvailableProperties()->map(array($floor, 'mapProperty'));
+		$floor->setAttribute('properties', $floor->getProperties()->map(array($floor, 'mapProperty'));
 		$floor->setAttribute('availablePlots', $floor->getAvailablePlots());
 		
 		$floor->setAttribute('availablePlotsHtml', $floor->getAvailablePlotsHtml());
@@ -56,6 +52,26 @@ class SmartProperties_FloorModel extends SmartProperties_BaseModel {
 		$floor->setAttribute('availableBedroomsHtml', $floor->getAvailableBedroomsHtml());
 		
 		return $floor;
+		
+	}
+	
+	protected function mapProperty(Property $property) {
+		
+		return [
+			'id' => $property->getAttribute('id'),
+			'propertyType' => $property->getAttribute('propertyType'),
+			'blockType' => $property->getAttribute('blockType')
+		];
+		
+	}
+	
+	protected function getProperties() {
+		
+		return (new Collection($this->getPlots()->map(function(Plot $plot) {
+			
+			return Property::compile( $plot->getPrivateAttribute('block'), $plot->getPrivateAttribute('entryId') );
+			
+		})))->unique()->keyBy('propertyType')->sort();
 		
 	}
 
