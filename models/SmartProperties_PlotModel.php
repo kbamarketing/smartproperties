@@ -55,7 +55,7 @@ class SmartProperties_PlotModel extends SmartProperties_BaseModel {
 		$plot->setAttribute('title', $property->getAttribute('title'));
 		$plot->setAttribute('propertyType', $property->getAttribute('propertyType'));
 		$plot->setAttribute('propertyId', $property->getAttribute('id'));
-		$plot->setAttribute('floor', $data->getAttribute('floor') ? $data->getAttribute('floor') : $property->getAttribute('title'));
+		$plot->setAttribute('floor', $data->getAttribute('floor') ? $data->getAttribute('floor') : 'ground');
 		
 		$bedrooms = $plot->getAttribute('data')->getAttribute('numberOfBedrooms');
 		$plot->setAttribute('numberOfBedrooms', is_numeric( $bedrooms ) ? $bedrooms : max($property->getAttribute('defaultBedrooms'), 1));
