@@ -20,6 +20,7 @@ class SmartProperties_PropertyModel extends SmartProperties_BaseModel {
 		'entryId' => AttributeType::Number,
 		'propertyType' => AttributeType::String,
 		'floorplan' => AttributeType::String,
+		'colour' => AttributeType::String,
 		'hasFloorplan' => AttributeType::Bool,
 		'title' => AttributeType::String,
 		'defaultBedrooms' => AttributeType::Number,
@@ -58,6 +59,7 @@ class SmartProperties_PropertyModel extends SmartProperties_BaseModel {
 		$property->setAttribute('defaultBedrooms', $block->getContent()->getAttribute('numberOfBedrooms'));
 		$property->setAttribute('hasFloorplan', $block->getFieldValue('floorplan')->first() ? true : false);
 		$property->setAttribute('floorplan', $block->getFieldValue('floorplan')->first());
+		$property->setAttribute('colour', array_key_exists('colour', $block->getContent()->getAttributes()) ? $block->getFieldValue('colour') : null);
 		$property->setAttribute('floorplanNotes', $block->getContent()->getAttribute('floorplanNotes'));
 		
 		$property->setPrivateAttribute('block', $block);
