@@ -31,7 +31,6 @@ class SmartProperties_PlotModel extends SmartProperties_BaseModel {
 		'floor' => AttributeType::String,
 		'colour' => AttributeType::String,
 		'numberOfBedrooms' => AttributeType::Number,
-		'bedrooms' => AttributeType::String,
 		'price' => AttributeType::Number,
 		'formattedPrice' => AttributeType::String,
 		'isAvailable' => AttributeType::Bool,
@@ -61,7 +60,6 @@ class SmartProperties_PlotModel extends SmartProperties_BaseModel {
 		$plot->setAttribute('colour', $data->getAttribute('colour') ? $data->getAttribute('colour') : $property->getAttribute('colour'));
 		
 		$bedrooms = $plot->getAttribute('data')->getAttribute('numberOfBedrooms');
-		$plot->setAttribute('bedrooms', $bedrooms );
 		$plot->setAttribute('numberOfBedrooms', is_numeric( $bedrooms ) ? $bedrooms : max($property->getAttribute('defaultBedrooms'), 1));
 		
 		$plot->setAttribute('price', $plot->getFormatter()->parse( $plot->getAttribute('data')->getAttribute('availability') ));
