@@ -36,6 +36,7 @@ class SmartProperties_PropertyModel extends SmartProperties_BaseModel {
 		'bedroomsHtml' => AttributeType::String,
 		'availableBedroomsHtml' => AttributeType::String,
 		'isStudio' => AttributeType::Bool,
+		'image' => AttributeType::Mixed,
 		'availabilityHtml' => AttributeType::String,
 		'hasPrices' => AttributeType::Bool,
 		'hasPlots' => AttributeType::Bool,
@@ -61,6 +62,7 @@ class SmartProperties_PropertyModel extends SmartProperties_BaseModel {
 		$property->setAttribute('floorplan', $block->getFieldValue('floorplan')->first());
 		$property->setAttribute('colour', array_key_exists('colour', $block->getContent()->getAttributes()) ? $block->getFieldValue('colour') : null);
 		$property->setAttribute('floorplanNotes', $block->getContent()->getAttribute('floorplanNotes'));
+		$property->setAttribute('image', array_key_exists('image', $block->getContent()->getAttributes()) ? $block->getFieldValue('image') : null);
 		
 		$property->setPrivateAttribute('block', $block);
 		$property->setPrivateAttribute('plots', new Collection( array_map( function( $plot ) use($property) {
