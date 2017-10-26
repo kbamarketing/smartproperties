@@ -36,4 +36,18 @@ class SmartProperties_CollectionModel extends Collection {
 		
 	}
 	
+	public function whereAll($args) {
+		
+		$collection = $this;
+		
+		foreach($args as $key => $arg) {
+			
+			$collection = $collection->filter($key, $arg);
+			
+		}
+		
+		return $collection;
+		
+	}
+	
 }
