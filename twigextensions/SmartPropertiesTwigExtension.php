@@ -38,10 +38,9 @@ class SmartPropertiesTwigExtension extends Twig_Extension
     
     public function cut($collection, $property, $value = null)
     {
+	    $args = is_array($property) ? $property : [$property => $value];
 	    $collection = $this->makeCollection($collection);
-        return $collection->filter(function($item) use($property, $value) {
-	        return ( $value && $item[$property] == $value ) || ( ! $value && $item[$property] );
-        });
+        return $collection->whereAll($args);
     }
     
     protected function makeCollection($collection)
