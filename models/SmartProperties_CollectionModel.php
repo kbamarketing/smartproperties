@@ -42,7 +42,7 @@ class SmartProperties_CollectionModel extends Collection {
 		
 		foreach($args as $key => $arg) {
 			
-			$collection = $collection->filter($key, $arg);
+			$collection = $collection->where($key, $arg);
 			
 		}
 		
