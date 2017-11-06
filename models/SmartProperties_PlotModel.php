@@ -3,7 +3,7 @@
 namespace Craft;
 
 use Craft\SmartProperties_CollectionModel as Collection;
-use Craft\SmartProperties_FlexibleModel as Model;
+use Craft\SmartProperties_FlexibleModel as FlexibleModel;
 use Craft\SmartProperties_PropertyModel as Property;
 
 class SmartProperties_PlotModel extends SmartProperties_BaseModel {
@@ -47,7 +47,7 @@ class SmartProperties_PlotModel extends SmartProperties_BaseModel {
 		$plot->setPrivateAttribute('block', $property->getPrivateAttribute('block'));
 		$plot->setPrivateAttribute('floorplan', $property->getAttribute('floorplan'));
 		
-		$data = new Model($data);
+		$data = new FlexibleModel($data);
 		
 		$plot->setAttribute('data', $data);
 		$plot->setAttribute('id', $data->getAttribute('plotNumber'));
