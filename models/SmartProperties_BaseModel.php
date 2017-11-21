@@ -73,9 +73,8 @@ class SmartProperties_BaseModel extends BaseModel {
 	public function flatten()
 	{
 		$attributes = $this->getAttributes(null, true);
-		$base = get_class();
 		foreach( $attributes as &$attribute ) {
-			if( $attribute instanceof $base ) {
+			if( $attribute instanceof SmartProperties_BaseModel ) {
 				$attribute = $attribute->flatten();
 			} else if ( $attribute instanceof BaseModel ) {
 				$attribute = $attribute->getAttributes(null, true);
