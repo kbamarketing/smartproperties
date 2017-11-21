@@ -79,8 +79,8 @@ class SmartProperties_BaseModel extends BaseModel {
 			} else if ( $attribute instanceof BaseModel ) {
 				$attribute = $attribute->getAttributes(null, true);
 			} else if ( $attribute instanceof Collection ) {
-				$attribute = $attribute->map(function($item) use($base) {
-					if( $item instanceof $base ) {
+				$attribute = $attribute->map(function($item) {
+					if( $item instanceof SmartProperties_BaseModel ) {
 						$item = $item->flatten();
 					}
 					return $item;
