@@ -63,6 +63,7 @@ class SmartProperties_PropertyModel extends SmartProperties_BaseModel {
 		$property->setAttribute('colour', array_key_exists('colour', $block->getContent()->getAttributes()) ? $block->getFieldValue('colour') : null);
 		$property->setAttribute('floorplanNotes', $block->getContent()->getAttribute('floorplanNotes'));
 		$property->setAttribute('image', array_key_exists('image', $block->getContent()->getAttributes()) ? $block->getFieldValue('image') : null);
+		$property->setAttribute('isStudio', $property->isStudio());
 		
 		$property->setPrivateAttribute('block', $block);
 		$property->setPrivateAttribute('plots', new Collection( array_map( function( $plot ) use($property) {
@@ -82,7 +83,6 @@ class SmartProperties_PropertyModel extends SmartProperties_BaseModel {
 		$property->setAttribute('hasVariatingPrices', $property->hasVariatingPrices());
 		$property->setAttribute('bedroomsHtml', $property->getBedroomsHtml());
 		$property->setAttribute('availableBedroomsHtml', $property->getAvailableBedroomsHtml());
-		$property->setAttribute('isStudio', $property->isStudio());
 		$property->setAttribute('availabilityHtml', $property->getAvailabilityHtml());
 		$property->setAttribute('hasPrices', $property->hasPrices());
 		$property->setAttribute('hasPlots', $property->getPlots() ? true : false);
