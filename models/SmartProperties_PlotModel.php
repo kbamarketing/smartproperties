@@ -37,7 +37,8 @@ class SmartProperties_PlotModel extends SmartProperties_BaseModel {
 		'toBeReleased' => AttributeType::Bool,
 		'hasDimensions' => AttributeType::Bool,
 		'dimensions' => AttributeType::Mixed,
-		'hasFloorplan' => AttributeType::Bool
+		'hasFloorplan' => AttributeType::Bool,
+		'isStudio' => AttributeType::Bool
 	);
 	
 	public static function compile( array $data, Property $property ) {
@@ -58,6 +59,7 @@ class SmartProperties_PlotModel extends SmartProperties_BaseModel {
 		$plot->setAttribute('propertyId', $property->getAttribute('id'));
 		$plot->setAttribute('floor', $data->getAttribute('floor') ? $data->getAttribute('floor') : ( $property->getAttribute('propertyType') == 'Apartment' ? $property->getAttribute('title') : 'ground' ));
 		$plot->setAttribute('colour', $data->getAttribute('colour') ? $data->getAttribute('colour') : $property->getAttribute('colour'));
+		$plot->setAttribute('isStudio', $property->getAttribute('defaultBedrooms') == static::STUDIO_LABEL);
 		
 		$bedrooms = $plot->getAttribute('data')->getAttribute('numberOfBedrooms');
 		$plot->setAttribute('numberOfBedrooms', is_numeric( $bedrooms ) ? $bedrooms : max($property->getAttribute('defaultBedrooms'), 1));
