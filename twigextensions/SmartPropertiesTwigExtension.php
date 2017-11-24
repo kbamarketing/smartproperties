@@ -42,6 +42,12 @@ class SmartPropertiesTwigExtension extends Twig_Extension
 	    $collection = $this->makeCollection($collection);
         return $collection->whereAll($args);
     }
+	
+	public function unique($collection)
+    {
+	    $collection = $this->makeCollection($collection);
+        return $collection->unique();
+    }
     
     protected function makeCollection($collection)
     {
