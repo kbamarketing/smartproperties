@@ -33,6 +33,7 @@ class SmartProperties_PlotModel extends SmartProperties_BaseModel {
 		'numberOfBedrooms' => AttributeType::Number,
 		'price' => AttributeType::Number,
 		'formattedPrice' => AttributeType::String,
+		'hidden' => AttributeType::Bool,
 		'isAvailable' => AttributeType::Bool,
 		'toBeReleased' => AttributeType::Bool,
 		'hasDimensions' => AttributeType::Bool,
@@ -60,6 +61,7 @@ class SmartProperties_PlotModel extends SmartProperties_BaseModel {
 		$plot->setAttribute('floor', $data->getAttribute('floor') ? $data->getAttribute('floor') : ( $property->getAttribute('propertyType') == 'Apartment' ? $property->getAttribute('title') : 'ground' ));
 		$plot->setAttribute('colour', $data->getAttribute('colour') ? $data->getAttribute('colour') : $property->getAttribute('colour'));
 		$plot->setAttribute('isStudio', $property->getAttribute('defaultBedrooms') == static::STUDIO_LABEL);
+		$plot->setAttribute('hidden', $data->getAttribute('hidden'));
 		
 		$bedrooms = $plot->getAttribute('data')->getAttribute('numberOfBedrooms');
 		$plot->setAttribute('numberOfBedrooms', is_numeric( $bedrooms ) ? $bedrooms : max($property->getAttribute('defaultBedrooms'), 1));
@@ -75,7 +77,7 @@ class SmartProperties_PlotModel extends SmartProperties_BaseModel {
 			
 		}));
 		
-		$plot->setAttribute('isAvailable', $plot->getAttribute('price') ? true : false);
+		$plot->setAttribute('isAvailable', $plot->getAttribute('price') && ! $plot->getAttribute('hidden') ? true : false);
 		$plot->setAttribute('toBeReleased', $plot->is(static::TO_BE_RELEASED_LABEL));
 		$plot->setAttribute('hasDimensions', $plot->getAttribute('dimensions')->count() ? true : false);
 		$plot->setAttribute('hasFloorplan', $property->getAttribute('hasFloorplan'));
