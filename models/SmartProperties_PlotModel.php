@@ -61,7 +61,7 @@ class SmartProperties_PlotModel extends SmartProperties_BaseModel {
 		$plot->setAttribute('floor', $data->getAttribute('floor') ? $data->getAttribute('floor') : ( $property->getAttribute('propertyType') == 'Apartment' ? $property->getAttribute('title') : 'ground' ));
 		$plot->setAttribute('colour', $data->getAttribute('colour') ? $data->getAttribute('colour') : $property->getAttribute('colour'));
 		$plot->setAttribute('isStudio', $property->getAttribute('defaultBedrooms') == static::STUDIO_LABEL);
-		$plot->setAttribute('hidden', $data->getAttribute('hidden'));
+		$plot->setAttribute('hidden', $data->getAttribute('hidden') ? true : false);
 		
 		$bedrooms = $plot->getAttribute('data')->getAttribute('numberOfBedrooms');
 		$plot->setAttribute('numberOfBedrooms', is_numeric( $bedrooms ) ? $bedrooms : max($property->getAttribute('defaultBedrooms'), 1));
