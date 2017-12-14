@@ -8,11 +8,11 @@ use Craft\SmartProperties_HasBedroomsModel as HasBedrooms;
 use Craft\SmartProperties_HasPlotsModel as HasPlots;
 
 class SmartProperties_PropertyModel extends SmartProperties_BaseModel {
-	
+
 	use HasPlots, HasBedrooms {
 		getBedrooms as getTraitBedrooms;
 	}
-	
+
 	protected $attributes = array(
 		'id' => AttributeType::Number,
 		'blockId' => AttributeType::Number,
@@ -20,6 +20,7 @@ class SmartProperties_PropertyModel extends SmartProperties_BaseModel {
 		'entryId' => AttributeType::Number,
 		'propertyType' => AttributeType::String,
 		'floorplan' => AttributeType::String,
+
 		'colour' => AttributeType::String,
 		'hasFloorplan' => AttributeType::Bool,
 		'title' => AttributeType::String,
@@ -37,6 +38,9 @@ class SmartProperties_PropertyModel extends SmartProperties_BaseModel {
 		'availableBedroomsHtml' => AttributeType::String,
 		'isStudio' => AttributeType::Bool,
 		'image' => AttributeType::Mixed,
+		'floorplan' => AttributeType::Mixed,
+		'cfloor' => AttributeType::Mixed,
+
 		'availabilityHtml' => AttributeType::String,
 		'hasPrices' => AttributeType::Bool,
 		'hasPlots' => AttributeType::Bool,
@@ -46,11 +50,11 @@ class SmartProperties_PropertyModel extends SmartProperties_BaseModel {
 		'floorplanNotes' => AttributeType::String,
 		'dimensions' => AttributeType::Mixed
 	);
-	
+
 	public static function compile( MatrixBlockModel $block, $entryId ) {
-		
+
 		$property = new static();
-		
+
 		$property->setAttribute('id', $block->getAttribute('id'));
 		$property->setAttribute('blockId', $block->getAttribute('id'));
 		$property->setAttribute('blockType', $block->type->getAttribute('handle'));
@@ -60,16 +64,18 @@ class SmartProperties_PropertyModel extends SmartProperties_BaseModel {
 		$property->setAttribute('defaultBedrooms', $block->getContent()->getAttribute('numberOfBedrooms'));
 		$property->setAttribute('hasFloorplan', $block->getFieldValue('floorplan')->first() ? true : false);
 		$property->setAttribute('floorplan', $block->getFieldValue('floorplan')->first());
+
+		$property->setAttribute('cfloor', array_key_exists('cfloor', $block->getContent()->getAttributes()) ? $block->getFieldValue('cfloor') : null);
 		$property->setAttribute('colour', array_key_exists('colour', $block->getContent()->getAttributes()) ? $block->getFieldValue('colour') : null);
 		$property->setAttribute('floorplanNotes', $block->getContent()->getAttribute('floorplanNotes'));
 		$property->setAttribute('image', array_key_exists('image', $block->getContent()->getAttributes()) ? $block->getFieldValue('image') : null);
-		
+
 		$property->setPrivateAttribute('block', $block);
 		$property->setPrivateAttribute('plots', new Collection( array_map( function( $plot ) use($property) {
 			return Plot::compile( $plot, clone $property );
 		}, $block->getFieldValue('plots') ) ) );
-		
-		
+
+
 		$property->setAttribute('isStudio', $property->isStudio());
 		$property->setPrivateAttribute('availablePlots', $property->getAvailablePlots());
 		$property->setAttribute('bedrooms', $property->getBedrooms());
@@ -90,17 +96,17 @@ class SmartProperties_PropertyModel extends SmartProperties_BaseModel {
 		$property->setAttribute('availablePlotsHtml', $property->getAvailablePlots()->count());
 		$property->setAttribute('priceHtml', $property->getPriceHtml());
 		$property->setAttribute('dimensions', $block->getFieldValue('dimensions'));
-		
+
 		return $property;
-		
+
 	}
-	
+
 	public function getBedrooms() {
-		
+
 		$bedrooms = $this->getTraitBedrooms();
-		
+
 		return $bedrooms->count() ? $bedrooms : new Collection( [ $this->getAttribute('defaultBedrooms') ] );
-		
+
 	}
-	
+
 }
