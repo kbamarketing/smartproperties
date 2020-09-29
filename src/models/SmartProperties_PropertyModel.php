@@ -54,7 +54,7 @@ class SmartProperties_PropertyModel extends SmartProperties_BaseModel {
 		'dimensions' => AttributeType::Mixed
 	);
 
-	public static function compile( craft\fields\Matrix $block, $entryId ) {
+	public static function compile( craft\elements\MatrixBlock $block, $entryId ) {
 
 		$property = new static();
 

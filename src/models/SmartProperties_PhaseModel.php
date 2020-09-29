@@ -26,7 +26,7 @@ class SmartProperties_PhaseModel extends SmartProperties_ContainerModel {
 	
 	protected function getProperties( \craft\elements\Entry $entry ) {
 		
-		return new Collection( array_map( function( MatrixBlockModel $block ) {
+		return new Collection( array_map( function( craft\elements\MatrixBlock $block ) {
 			
 			return Property::compile( $block, $this->getAttribute('id') );
 			

@@ -34,7 +34,7 @@ class SmartProperties_FloorModel extends SmartProperties_BaseModel {
 		'availableBedroomsHtml' => AttributeType::String
 	);
 			
-	public static function compile( craft\fields\Matrix $block, Collection $plots ) {	
+	public static function compile( craft\elements\MatrixBlock $block, Collection $plots ) {	
 		
 		$floor = new static();
 		
@@ -91,7 +91,7 @@ class SmartProperties_FloorModel extends SmartProperties_BaseModel {
 		
 	}
 	
-	public static function determineTitle( craft\fields\Matrix $block ) {
+	public static function determineTitle( craft\elements\MatrixBlock $block ) {
 		
 		return is_string( $block->getFieldValue('theTitle') ) ? $block->getFieldValue('theTitle') : $block->getFieldValue('theTitle')->label;
 		
