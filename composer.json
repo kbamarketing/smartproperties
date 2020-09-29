@@ -37,7 +37,7 @@
         "documentationUrl": "???",
         "changelogUrl": "???",
         "components": {
-            "smartPropertiesService": "kbamarketing\\smartproperties\\services\\SmartPropertiesService"
+            "smartPropertiesService": "KBAMarketing\\SmartProperties\\services\\SmartPropertiesService"
         },
         "class": "kbamarketing\\smartproperties\\SmartProperties"
     }
