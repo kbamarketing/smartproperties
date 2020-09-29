@@ -86,9 +86,13 @@ trait SmartProperties_HasPlotsModel {
 	}
 	
 	protected function getAvailabilityHtml() {
-		
-		if( ! count( $this->getPlots()->filter(function(Plot $plot) {
-			
+
+		if (! count( $this->getPlots())) {
+
+			return Plot::TO_BE_RELEASED_LABEL;
+
+		} elseif( ! count( $this->getPlots()->filter(function(Plot $plot) {
+
 			return ! $plot->is(Plot::SOLD_LABEL);
 			
 		} ) ) ) {

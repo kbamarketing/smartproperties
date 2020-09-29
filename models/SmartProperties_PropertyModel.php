@@ -71,10 +71,15 @@ class SmartProperties_PropertyModel extends SmartProperties_BaseModel {
 		$property->setAttribute('image', array_key_exists('image', $block->getContent()->getAttributes()) ? $block->getFieldValue('image') : null);
 
 		$property->setPrivateAttribute('block', $block);
+
+		$plots = [];
+		foreach($block->getFieldValue('plots') as $plot) {
+			$plots[] = $plot->getContent()->getAttributes();
+		}
+
 		$property->setPrivateAttribute('plots', new Collection( array_map( function( $plot ) use($property) {
 			return Plot::compile( $plot, clone $property );
-		}, $block->getFieldValue('plots') ) ) );
-
+		}, $plots ) ) );
 
 		$property->setAttribute('isStudio', $property->isStudio());
 		$property->setPrivateAttribute('availablePlots', $property->getAvailablePlots());
