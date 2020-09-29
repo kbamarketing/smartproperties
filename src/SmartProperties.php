@@ -12,7 +12,8 @@ namespace KBAMarketing\SmartProperties;
 
 use services\SmartPropertiesService as SmartPropertiesServiceService;
 use variables\SmartPropertiesVariable;
-use twigextensions\SmartPropertiesTwigExtension;
+use KBAMarketing\SmartProperties\twigextensions\SmartPropertiesTwigExtension;
+use KBAMarketing\SmartProperties\models\Settings;
 
 use Craft;
 use craft\base\Plugin;
@@ -20,6 +21,8 @@ use craft\services\Plugins;
 use craft\events\PluginEvent;
 use craft\console\Application as ConsoleApplication;
 use craft\web\twig\variables\CraftVariable;
+use craft\events\RegisterCacheOptionsEvent;
+use craft\utilities\ClearCaches;
 
 use yii\base\Event;
 
@@ -53,7 +56,7 @@ class SmartProperties extends Plugin
     /**
      * @var bool
      */
-    public $hasCpSettings = false;
+    public $hasCpSettings = true;
 
     /**
      * @var bool
@@ -105,7 +108,7 @@ class SmartProperties extends Plugin
             __METHOD__
         );
         
-        Event::on( 'entries.saveEntry', function( Event $event ) {
+        \Craft::$app->on( 'entries.saveEntry', function( Event $event ) {
 			    
 		    $entry = $event->params['entry'];
 		    
@@ -117,7 +120,7 @@ class SmartProperties extends Plugin
 		    
 		});
 		
-		Event::on( 'entries.deleteEntry', function( Event $event ) {
+		\Craft::$app->on( 'entries.deleteEntry', function( Event $event ) {
 			    
 		    $entry = $event->params['entry'];
 		    
@@ -128,91 +131,33 @@ class SmartProperties extends Plugin
 		    }
 		    
 		});
+		
+		Event::on(
+		    ClearCaches::class,
+		    ClearCaches::EVENT_REGISTER_CACHE_OPTIONS,
+		    function(RegisterCacheOptionsEvent $event) {
+		        $event->options[] = [
+		            'key' => 'drink-images',
+		            'label' => \Craft::t('plugin-handle', 'SmartProperties caches'),
+		            'action' => \Craft::$app->path->getStoragePath().'/smartproperties'
+		        ];
+		    }
+		);
     }
 
     // Protected Methods
     // =========================================================================
-    
-    public function getName()
-    {
-        return Craft::t($this->_name);
-    }
-    
-    public function getUrl()
-    {
-        return $this->_url;
-    }
-    
-    public function getVersion()
-    {
-        return $this->_version;
-    }
-    
-    public function getDeveloper()
-    {
-        return $this->_developer;
-    }
-    
-    public function getDeveloperUrl()
-    {
-        return $this->_developerUrl;
-    }
-    
-    public function getDescription()
-    {
-        return $this->_description;
-    }
-    
-    public function getDocumentationUrl()
-    {
-        return $this->_documentationUrl;
-    }
-    
-    public function getSchemaVersion()
-    {
-        return $this->_schemaVersion;
-    }
-    
-    public function getReleaseFeedUrl()
-    {
-        return $this->_releaseFeedUrl;
-    }
-    
-    public function getCraftRequiredVersion()
-    {
-        return $this->_minVersion;
-    }
-    
-    public function hasCpSection()
-    {
-        return false;
-    }
-
-	public function addTwigExtension()
-	{
-	    Craft::import('plugins.smartproperties.twigextensions.SmartPropertiesTwigExtension');
 	
-	    return new SmartPropertiesTwigExtension();
-	}
-	
-	protected function defineSettings()
+	protected function createSettingsModel()
     {
-	    return array(
-		    'spUseCache' => array(AttributeType::Bool, 'default' => false),
-        );
-	}
-	
-	public function getSettingsHtml()
-    {
-        return craft()->templates->render('smartproperties/settings', array(
-            'settings' => $this->getSettings()
-        ));
+        return new Settings();
     }
     
-    public function registerCachePaths()
+    protected function settingsHtml()
     {
-        return array(
-            craft()->path->getRuntimePath().'smartproperties/' => Craft::t('SmartProperties caches'),
+        return \Craft::$app->getView()->renderTemplate(
+            'smartproperties/settings',
+            [ 'settings' => $this->getSettings() ]
         );
     }
 
