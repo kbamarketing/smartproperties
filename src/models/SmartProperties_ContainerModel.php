@@ -5,9 +5,10 @@ namespace kbamarketing\smartproperties\models;
 
 use Craft;
 
-use SmartProperties_HasBedroomsModel as HasBedrooms;
-use SmartProperties_HasPlotsModel as HasPlots;
-use SmartProperties_PlotModel as Plot;
+use kbamarketing\smartproperties\models\SmartProperties_HasBedroomsModel as HasBedrooms;
+use kbamarketing\smartproperties\models\SmartProperties_HasPlotsModel as HasPlots;
+use kbamarketing\smartproperties\models\SmartProperties_PlotModel as Plot;
+use kbamarketing\smartproperties\models\AttributeType;
 
 abstract class SmartProperties_ContainerModel extends SmartProperties_BaseModel {
 	
@@ -34,7 +35,7 @@ abstract class SmartProperties_ContainerModel extends SmartProperties_BaseModel 
 		'isAvailable' => AttributeType::Bool
 	);
 	
-	public static function compile( EntryModel $entry, $isChild = false ) {
+	public static function compile( \craft\elements\Entry $entry, $isChild = false ) {
 		
 		$container = new static();
 		
@@ -89,19 +90,19 @@ abstract class SmartProperties_ContainerModel extends SmartProperties_BaseModel 
 		
 	}
 	
-	protected function beforeCompile( EntryModel $entry ) {
+	protected function beforeCompile( \craft\elements\Entry $entry ) {
 		
 		
 		
 	}
 	
-	protected function afterCompile( EntryModel $entry ) {
+	protected function afterCompile( \craft\elements\Entry $entry ) {
 		
 		
 		
 	}
 	
-	protected function getProperties( EntryModel $entry ) {
+	protected function getProperties( \craft\elements\Entry $entry ) {
 		
 		return [];
 		

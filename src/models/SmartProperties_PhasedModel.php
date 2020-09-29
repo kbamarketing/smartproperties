@@ -4,8 +4,9 @@ namespace kbamarketing\smartproperties\models;
 
 use Craft;
 
-use SmartProperties_CollectionModel as Collection;
-use SmartProperties_PhaseModel as Phase;
+use kbamarketing\smartproperties\models\SmartProperties_CollectionModel as Collection;
+use kbamarketing\smartproperties\models\SmartProperties_PhaseModel as Phase;
+use kbamarketing\smartproperties\models\AttributeType;
 
 class SmartProperties_PhasedModel extends SmartProperties_ContainerModel {
 	
@@ -17,16 +18,16 @@ class SmartProperties_PhasedModel extends SmartProperties_ContainerModel {
 		));
 	}
 	
-	protected function beforeCompile( EntryModel $entry ) {
+	protected function beforeCompile( \craft\elements\Entry $entry ) {
 		
 		$this->setAttribute('phases', $this->getPhases( $entry ));
 		$this->setAttribute('isPhased', true);
 		
 	}
 	
-	protected function getPhases( EntryModel $entry ) {
+	protected function getPhases( \craft\elements\Entry $entry ) {
 		
-		return new Collection( array_map( function( EntryModel $child ) { 
+		return new Collection( array_map( function( \craft\elements\Entry $child ) { 
 			
 			return Phase::compile( $child, true );
 			
@@ -34,7 +35,7 @@ class SmartProperties_PhasedModel extends SmartProperties_ContainerModel {
 		
 	}
 	
-	protected function getProperties( EntryModel $entry ) {
+	protected function getProperties( \craft\elements\Entry $entry ) {
 		
 		return $this->getChildCollection( 'phases', 'properties' );
 		

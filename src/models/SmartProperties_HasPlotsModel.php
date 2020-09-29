@@ -4,8 +4,8 @@ namespace kbamarketing\smartproperties\models;
 
 use Craft;
 
-use SmartProperties_PlotModel as Plot;
-use SmartProperties_CollectionModel as Collection;
+use kbamarketing\smartproperties\models\SmartProperties_PlotModel as Plot;
+use kbamarketing\smartproperties\models\SmartProperties_CollectionModel as Collection;
 
 trait SmartProperties_HasPlotsModel {
 	

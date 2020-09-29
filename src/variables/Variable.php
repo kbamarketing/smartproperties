@@ -11,6 +11,7 @@
 namespace kbamarketing\smartproperties\variables;
 
 use craft\elements\Entry as EntryModel;
+use kbamarketing\smartproperties\Plugin;
 
 use Craft;
 
@@ -23,7 +24,7 @@ class Variable
 {
     public function factory( EntryModel $entry ) {
 		
-		return craft()->smartProperties->getContainer( $entry );
+		return Plugin::getInstance()->service->getContainer( $entry );
 		
 	}
 

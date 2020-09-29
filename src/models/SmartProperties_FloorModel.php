@@ -5,11 +5,12 @@ namespace kbamarketing\smartproperties\models;
 
 use Craft;
 
-use SmartProperties_CollectionModel as Collection;
-use SmartProperties_HasBedroomsModel as HasBedrooms;
-use SmartProperties_HasPlotsModel as HasPlots;
-use SmartProperties_PlotModel as Plot;
-use SmartProperties_PropertyModel as Property;
+use kbamarketing\smartproperties\models\SmartProperties_CollectionModel as Collection;
+use kbamarketing\smartproperties\models\SmartProperties_HasBedroomsModel as HasBedrooms;
+use kbamarketing\smartproperties\models\SmartProperties_HasPlotsModel as HasPlots;
+use kbamarketing\smartproperties\models\SmartProperties_PlotModel as Plot;
+use kbamarketing\smartproperties\models\SmartProperties_PropertyModel as Property;
+use kbamarketing\smartproperties\models\AttributeType;
 
 class SmartProperties_FloorModel extends SmartProperties_BaseModel {
 	
@@ -33,7 +34,7 @@ class SmartProperties_FloorModel extends SmartProperties_BaseModel {
 		'availableBedroomsHtml' => AttributeType::String
 	);
 			
-	public static function compile( MatrixBlockModel $block, Collection $plots ) {	
+	public static function compile( craft\fields\Matrix $block, Collection $plots ) {	
 		
 		$floor = new static();
 		
@@ -90,7 +91,7 @@ class SmartProperties_FloorModel extends SmartProperties_BaseModel {
 		
 	}
 	
-	public static function determineTitle( MatrixBlockModel $block ) {
+	public static function determineTitle( craft\fields\Matrix $block ) {
 		
 		return is_string( $block->getFieldValue('theTitle') ) ? $block->getFieldValue('theTitle') : $block->getFieldValue('theTitle')->label;
 		

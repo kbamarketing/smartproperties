@@ -5,7 +5,7 @@ namespace kbamarketing\smartproperties\models;
 use Craft;
 use craft\base\Model;
 
-use SmartProperties_CollectionModel as Collection;
+use kbamarketing\smartproperties\models\SmartProperties_CollectionModel as Collection;
 use NumberFormatter;
 
 class SmartProperties_BaseModel extends Model {
@@ -33,6 +33,12 @@ class SmartProperties_BaseModel extends Model {
 	protected function defineAttributes() {
 		
 		return $this->attributes;
+		
+	}
+	
+	protected function setAttribute($key, $value) {
+		
+		$this->setAttributes([$key => $value]);
 		
 	}
 	
@@ -78,7 +84,7 @@ class SmartProperties_BaseModel extends Model {
 		foreach( $attributes as &$attribute ) {
 			if( $attribute instanceof SmartProperties_BaseModel ) {
 				$attribute = $attribute->flatten();
-			} else if ( $attribute instanceof BaseModel ) {
+			} else if ( $attribute instanceof Model ) {
 				$attribute = $attribute->getAttributes(null, true);
 			} else if ( $attribute instanceof Collection ) {
 				$attribute = $attribute->map(function($item) {

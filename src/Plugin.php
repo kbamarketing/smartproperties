@@ -13,6 +13,7 @@ namespace kbamarketing\smartproperties;
 use kbamarketing\smartproperties\variables\Variable;
 use kbamarketing\smartproperties\twigextensions\TwigExtension;
 use kbamarketing\smartproperties\models\Settings;
+use kbamarketing\smartproperties\services\Service;
 
 use Craft;
 use craft\services\Plugins;
@@ -77,6 +78,10 @@ class Plugin extends \craft\base\Plugin
         if (Craft::$app instanceof ConsoleApplication) {
             $this->controllerNamespace = 'kbamarketing\smartproperties\console\controllers';
         }
+        
+        $this->setComponents([
+	        'service' => Service::class,
+	    ]);
 
         Event::on(
             CraftVariable::class,

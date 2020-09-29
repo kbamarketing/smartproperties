@@ -4,9 +4,10 @@ namespace kbamarketing\smartproperties\models;
 
 use Craft;
 
-use SmartProperties_CollectionModel as Collection;
-use SmartProperties_FlexibleModel as FlexibleModel;
-use SmartProperties_PropertyModel as Property;
+use kbamarketing\smartproperties\models\SmartProperties_CollectionModel as Collection;
+use kbamarketing\smartproperties\models\SmartProperties_FlexibleModel as FlexibleModel;
+use kbamarketing\smartproperties\models\SmartProperties_PropertyModel as Property;
+use kbamarketing\smartproperties\models\AttributeType;
 
 class SmartProperties_PlotModel extends SmartProperties_BaseModel {
 	

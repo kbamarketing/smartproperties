@@ -18,6 +18,8 @@ use kbamarketing\smartproperties\models\SmartProperties_ContainerModel as Contai
 use kbamarketing\smartproperties\models\SmartProperties_PhasedModel as Phased;
 use kbamarketing\smartproperties\models\SmartProperties_PhaseModel as Phase;
 
+use kbamarketing\smartproperties\Plugin;
+
 /**
  * @author    Aduro
  * @package   SmartProperties
@@ -27,7 +29,7 @@ class Service extends Component
 {
     protected function useCache()
 	{
-		$settings = craft()->plugins->getPlugin('smartProperties')->getSettings();
+		$settings = Plugin::getInstance()->getSettings();
 		return $settings->spUseCache;
 	}
 	
@@ -120,7 +122,7 @@ class Service extends Component
    
         $cacheKey = $this->getCacheKey($entry);
 
-        return craft()->cache->get($cacheKey);
+        return Craft::$app->cache->get($cacheKey);
 
     }
 
@@ -128,7 +130,7 @@ class Service extends Component
 
         $cacheKey = $this->getCacheKey($entry);
 
-        return craft()->cache->set($cacheKey, $data, $expire, $dependency);
+        return Craft::$app->cache->set($cacheKey, $data, $expire, $dependency);
 
     }
     
@@ -136,7 +138,7 @@ class Service extends Component
 
         $cacheKey = $this->getCacheKey($entry);
 
-        return craft()->cache->deleteCachesByKey($cacheKey);
+        return Craft::$app->cache->deleteCachesByKey($cacheKey);
 
     }
 

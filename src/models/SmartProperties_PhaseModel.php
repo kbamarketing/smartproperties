@@ -4,10 +4,11 @@ namespace kbamarketing\smartproperties\models;
 
 use Craft;
 
-use SmartProperties_CollectionModel as Collection;
-use SmartProperties_PropertyModel as Property;
-use SmartProperties_PlotModel as Plot;
-use SmartProperties_FloorModel as PropertyFloor;
+use kbamarketing\smartproperties\models\SmartProperties_CollectionModel as Collection;
+use kbamarketing\smartproperties\models\SmartProperties_PropertyModel as Property;
+use kbamarketing\smartproperties\models\SmartProperties_PlotModel as Plot;
+use kbamarketing\smartproperties\models\SmartProperties_FloorModel as PropertyFloor;
+use kbamarketing\smartproperties\models\AttributeType;
 
 class SmartProperties_PhaseModel extends SmartProperties_ContainerModel {
 	
@@ -17,13 +18,13 @@ class SmartProperties_PhaseModel extends SmartProperties_ContainerModel {
 		));
 	}
 	
-	protected function afterCompile( EntryModel $entry ) {
+	protected function afterCompile( \craft\elements\Entry $entry ) {
 		
 		$this->setAttribute('floors', $this->getFloors( $entry ));
 		
 	}
 	
-	protected function getProperties( EntryModel $entry ) {
+	protected function getProperties( \craft\elements\Entry $entry ) {
 		
 		return new Collection( array_map( function( MatrixBlockModel $block ) {
 			
@@ -36,7 +37,7 @@ class SmartProperties_PhaseModel extends SmartProperties_ContainerModel {
 		
 	}
 	
-	protected function getFloors( EntryModel $entry ) {
+	protected function getFloors( \craft\elements\Entry $entry ) {
 		
 		$blocks = array_merge( 
 			$entry->getFieldValue( 'developmentFloors' )->find(),

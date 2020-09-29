@@ -4,10 +4,11 @@ namespace kbamarketing\smartproperties\models;
 
 use Craft;
 
-use SmartProperties_PlotModel as Plot;
-use SmartProperties_CollectionModel as Collection;
-use SmartProperties_HasBedroomsModel as HasBedrooms;
-use SmartProperties_HasPlotsModel as HasPlots;
+use kbamarketing\smartproperties\models\SmartProperties_PlotModel as Plot;
+use kbamarketing\smartproperties\models\SmartProperties_CollectionModel as Collection;
+use kbamarketing\smartproperties\models\SmartProperties_HasBedroomsModel as HasBedrooms;
+use kbamarketing\smartproperties\models\SmartProperties_HasPlotsModel as HasPlots;
+use kbamarketing\smartproperties\models\AttributeType;
 
 class SmartProperties_PropertyModel extends SmartProperties_BaseModel {
 
@@ -53,7 +54,7 @@ class SmartProperties_PropertyModel extends SmartProperties_BaseModel {
 		'dimensions' => AttributeType::Mixed
 	);
 
-	public static function compile( MatrixBlockModel $block, $entryId ) {
+	public static function compile( craft\fields\Matrix $block, $entryId ) {
 
 		$property = new static();
 
