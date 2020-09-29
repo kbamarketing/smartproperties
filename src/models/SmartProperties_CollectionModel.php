@@ -1,6 +1,10 @@
 <?php
 	
-namespace Craft;
+namespace KBAMarketing\SmartProperties\models;
+
+use KBAMarketing\SmartProperties\SmartProperties;
+
+use Craft;
 
 use Illuminate\Support\Collection;
 

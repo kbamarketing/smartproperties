@@ -1,12 +1,16 @@
 <?php
 
-namespace Craft;
+namespace KBAMarketing\SmartProperties\models;
 
-use Craft\SmartProperties_CollectionModel as Collection;
-use Craft\SmartProperties_BaseModel as Base;
+use KBAMarketing\SmartProperties\SmartProperties;
+
+use Craft;
+use craft\base\Model;
+
+use SmartProperties_CollectionModel as Collection;
 use NumberFormatter;
 
-class SmartProperties_BaseModel extends BaseModel {
+class SmartProperties_BaseModel extends Model {
 	
 	const LOCALE = 'en_GB';
 	const CURRENCY = 'GBP';

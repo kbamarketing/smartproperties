@@ -1,11 +1,15 @@
 <?php
 
-namespace Craft;
+namespace KBAMarketing\SmartProperties\models;
 
-use Craft\SmartProperties_CollectionModel as Collection;
-use Craft\SmartProperties_PropertyModel as Property;
-use Craft\SmartProperties_PlotModel as Plot;
-use Craft\SmartProperties_FloorModel as PropertyFloor;
+use KBAMarketing\SmartProperties\SmartProperties;
+
+use Craft;
+
+use SmartProperties_CollectionModel as Collection;
+use SmartProperties_PropertyModel as Property;
+use SmartProperties_PlotModel as Plot;
+use SmartProperties_FloorModel as PropertyFloor;
 
 class SmartProperties_PhaseModel extends SmartProperties_ContainerModel {
 	

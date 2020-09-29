@@ -1,10 +1,14 @@
 <?php
 
-namespace Craft;
+namespace KBAMarketing\SmartProperties\models;
 
-use Craft\SmartProperties_CollectionModel as Collection;
-use Craft\SmartProperties_FlexibleModel as FlexibleModel;
-use Craft\SmartProperties_PropertyModel as Property;
+use KBAMarketing\SmartProperties\SmartProperties;
+
+use Craft;
+
+use SmartProperties_CollectionModel as Collection;
+use SmartProperties_FlexibleModel as FlexibleModel;
+use SmartProperties_PropertyModel as Property;
 
 class SmartProperties_PlotModel extends SmartProperties_BaseModel {
 	

@@ -1,10 +1,14 @@
 <?php
 
-namespace Craft;
+namespace KBAMarketing\SmartProperties\models;
 
-use Craft\SmartProperties_HasBedroomsModel as HasBedrooms;
-use Craft\SmartProperties_HasPlotsModel as HasPlots;
-use Craft\SmartProperties_PlotModel as Plot;
+use KBAMarketing\SmartProperties\SmartProperties;
+
+use Craft;
+
+use SmartProperties_HasBedroomsModel as HasBedrooms;
+use SmartProperties_HasPlotsModel as HasPlots;
+use SmartProperties_PlotModel as Plot;
 
 abstract class SmartProperties_ContainerModel extends SmartProperties_BaseModel {
 	

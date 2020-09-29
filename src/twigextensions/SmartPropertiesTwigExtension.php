@@ -1,26 +1,48 @@
 <?php
-	
-namespace Craft;
+/**
+ * Smart Properties plugin for Craft CMS 3.x
+ *
+ * A plugin to build complex property relationships
+ *
+ * @link      https://weareaduro.com
+ * @copyright Copyright (c) 2020 Aduro
+ */
 
-use Twig_Extension;
-use Twig_Filter_Method;
-use Craft\SmartProperties_CollectionModel as Collection;
+namespace KBAMarketing\SmartProperties\twigextensions;
 
-class SmartPropertiesTwigExtension extends Twig_Extension
+use KBAMarketing\SmartProperties\SmartProperties;
+
+use Craft;
+
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
+use Twig\TwigFunction;
+use KBAMarketing\SmartProperties\models\SmartProperties_CollectionModel as Collection;
+
+/**
+ * @author    Aduro
+ * @package   SmartProperties
+ * @since     1.0.2
+ */
+class SmartPropertiesTwigExtension extends AbstractExtension
 {
-	
-	public function getName()
+    // Public Methods
+    // =========================================================================
+
+    /**
+     * @inheritdoc
+     */
+    public function getName()
     {
         return 'SmartProperties';
     }
 
-
-	public function getFilters()
+   public function getFilters()
     {
         return array(
-            'concat' => new Twig_Filter_Method($this, 'concat'),
-            'cut' => new Twig_Filter_Method($this, 'cut'),
-            'find' => new Twig_Filter_Method($this, 'find'),
+            new TwigFilter('concat', [$this, 'concat']),
+            new TwigFilter('cut', [$this, 'cut']),
+            new TwigFilter('find', [$this, 'find']),
         );
     }
     
@@ -53,5 +75,5 @@ class SmartPropertiesTwigExtension extends Twig_Extension
     {
 	    return $collection instanceof Collection ? $collection : new Collection($collection);
     }
-    
+
 }

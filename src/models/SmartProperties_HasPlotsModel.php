@@ -1,9 +1,13 @@
 <?php
 
-namespace Craft;
+namespace KBAMarketing\SmartProperties\models;
 
-use Craft\SmartProperties_PlotModel as Plot;
-use Craft\SmartProperties_CollectionModel as Collection;
+use KBAMarketing\SmartProperties\SmartProperties;
+
+use Craft;
+
+use SmartProperties_PlotModel as Plot;
+use SmartProperties_CollectionModel as Collection;
 
 trait SmartProperties_HasPlotsModel {
 	

@@ -1,15 +1,32 @@
 <?php
-	
-namespace Craft;
+/**
+ * Smart Properties plugin for Craft CMS 3.x
+ *
+ * A plugin to build complex property relationships
+ *
+ * @link      https://weareaduro.com
+ * @copyright Copyright (c) 2020 Aduro
+ */
 
-use Craft\SmartProperties_ContainerModel as Container;
-use Craft\SmartProperties_PhasedModel as Phased;
-use Craft\SmartProperties_PhaseModel as Phase;
+namespace KBAMarketing\SmartProperties\services;
 
-class SmartPropertiesService extends BaseApplicationComponent
+use KBAMarketing\SmartProperties\SmartProperties;
+
+use Craft;
+use craft\base\Component;
+
+use KBAMarketing\SmartProperties\models\SmartProperties_ContainerModel as Container;
+use KBAMarketing\SmartProperties\models\SmartProperties_PhasedModel as Phased;
+use KBAMarketing\SmartProperties\models\SmartProperties_PhaseModel as Phase;
+
+/**
+ * @author    Aduro
+ * @package   SmartProperties
+ * @since     1.0.2
+ */
+class SmartPropertiesService extends Component
 {
-	
-	protected function useCache()
+    protected function useCache()
 	{
 		$settings = craft()->plugins->getPlugin('smartProperties')->getSettings();
 		return $settings->spUseCache;
@@ -133,5 +150,5 @@ class SmartPropertiesService extends BaseApplicationComponent
 	        $entry->id
         ]));
     }
-	
+
 }

@@ -1,9 +1,13 @@
 <?php
 
-namespace Craft;
+namespace KBAMarketing\SmartProperties\models;
 
-use Craft\SmartProperties_CollectionModel as Collection;
-use Craft\SmartProperties_PhaseModel as Phase;
+use KBAMarketing\SmartProperties\SmartProperties;
+
+use Craft;
+
+use SmartProperties_CollectionModel as Collection;
+use SmartProperties_PhaseModel as Phase;
 
 class SmartProperties_PhasedModel extends SmartProperties_ContainerModel {
 	
