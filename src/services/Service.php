@@ -8,23 +8,22 @@
  * @copyright Copyright (c) 2020 Aduro
  */
 
-namespace KBAMarketing\SmartProperties\services;
-
-use KBAMarketing\SmartProperties\SmartProperties;
+namespace kbamarketing\smartproperties\services;
 
 use Craft;
 use craft\base\Component;
+use craft\elements\Entry as EntryModel;
 
-use KBAMarketing\SmartProperties\models\SmartProperties_ContainerModel as Container;
-use KBAMarketing\SmartProperties\models\SmartProperties_PhasedModel as Phased;
-use KBAMarketing\SmartProperties\models\SmartProperties_PhaseModel as Phase;
+use kbamarketing\smartproperties\models\SmartProperties_ContainerModel as Container;
+use kbamarketing\smartproperties\models\SmartProperties_PhasedModel as Phased;
+use kbamarketing\smartproperties\models\SmartProperties_PhaseModel as Phase;
 
 /**
  * @author    Aduro
  * @package   SmartProperties
  * @since     1.0.2
  */
-class SmartPropertiesService extends Component
+class Service extends Component
 {
     protected function useCache()
 	{

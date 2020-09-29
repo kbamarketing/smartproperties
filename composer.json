@@ -26,20 +26,14 @@
     },
     "autoload": {
         "psr-4": {
-          "KBAMarketing\\SmartProperties\\": "src/"
+          "kbamarketing\\smartproperties\\": "src/"
         }
     },
     "extra": {
-        "name": "Smart Properties",
+        "name": "SmartProperties",
         "handle": "smartproperties",
-        "developer": "Aduro",
-        "developerUrl": "https://weareaduro.com",
-        "documentationUrl": "???",
-        "changelogUrl": "???",
         "components": {
-            "smartPropertiesService": "KBAMarketing\\SmartProperties\\services\\SmartPropertiesService"
-        },
-        "class": "KBAMarketing\\SmartProperties\\SmartProperties",
-        "basePath": "src/"
+            "smartProperties": "kbamarketing\\smartproperties\\services\\Service"
+        }
     }
 }

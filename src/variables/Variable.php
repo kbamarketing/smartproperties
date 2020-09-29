@@ -8,9 +8,9 @@
  * @copyright Copyright (c) 2020 Aduro
  */
 
-namespace KBAMarketing\SmartProperties\variables;
+namespace kbamarketing\smartproperties\variables;
 
-use KBAMarketing\SmartProperties\SmartProperties;
+use craft\elements\Entry as EntryModel;
 
 use Craft;
 
@@ -19,7 +19,7 @@ use Craft;
  * @package   SmartProperties
  * @since     1.0.2
  */
-class SmartPropertiesVariable
+class Variable
 {
     public function factory( EntryModel $entry ) {
 		

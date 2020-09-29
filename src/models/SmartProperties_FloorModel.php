@@ -1,8 +1,7 @@
 <?php
 
-namespace KBAMarketing\SmartProperties\models;
+namespace kbamarketing\smartproperties\models;
 
-use KBAMarketing\SmartProperties\SmartProperties;
 
 use Craft;
 

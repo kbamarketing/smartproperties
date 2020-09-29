@@ -8,23 +8,21 @@
  * @copyright Copyright (c) 2020 Aduro
  */
 
-namespace KBAMarketing\SmartProperties\twigextensions;
-
-use KBAMarketing\SmartProperties\SmartProperties;
+namespace kbamarketing\smartproperties\twigextensions;
 
 use Craft;
 
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
-use KBAMarketing\SmartProperties\models\SmartProperties_CollectionModel as Collection;
+use kbamarketing\smartproperties\models\SmartProperties_CollectionModel as Collection;
 
 /**
  * @author    Aduro
  * @package   SmartProperties
  * @since     1.0.2
  */
-class SmartPropertiesTwigExtension extends AbstractExtension
+class TwigExtension extends AbstractExtension
 {
     // Public Methods
     // =========================================================================

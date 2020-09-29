@@ -8,15 +8,13 @@
  * @copyright Copyright (c) 2020 Aduro
  */
 
-namespace KBAMarketing\SmartProperties;
+namespace kbamarketing\smartproperties;
 
-use services\SmartPropertiesService as SmartPropertiesServiceService;
-use variables\SmartPropertiesVariable;
-use KBAMarketing\SmartProperties\twigextensions\SmartPropertiesTwigExtension;
-use KBAMarketing\SmartProperties\models\Settings;
+use kbamarketing\smartproperties\variables\Variable;
+use kbamarketing\smartproperties\twigextensions\TwigExtension;
+use kbamarketing\smartproperties\models\Settings;
 
 use Craft;
-use craft\base\Plugin;
 use craft\services\Plugins;
 use craft\events\PluginEvent;
 use craft\console\Application as ConsoleApplication;
@@ -27,21 +25,21 @@ use craft\utilities\ClearCaches;
 use yii\base\Event;
 
 /**
- * Class SmartProperties
+ * Class smartproperties
  *
  * @author    Aduro
- * @package   SmartProperties
+ * @package   smartproperties
  * @since     1.0.2
  *
- * @property  SmartPropertiesServiceService $smartPropertiesService
+ * @property  smartpropertiesServiceService $smartPropertiesService
  */
-class SmartProperties extends Plugin
+class Plugin extends \craft\base\Plugin
 {
     // Static Properties
     // =========================================================================
 
     /**
-     * @var SmartProperties
+     * @var smartproperties
      */
     public static $plugin;
 
@@ -74,10 +72,10 @@ class SmartProperties extends Plugin
         parent::init();
         self::$plugin = $this;
 
-        Craft::$app->view->registerTwigExtension(new SmartPropertiesTwigExtension());
+        Craft::$app->view->registerTwigExtension(new TwigExtension());
 
         if (Craft::$app instanceof ConsoleApplication) {
-            $this->controllerNamespace = 'KBAMarketing\SmartProperties\console\controllers';
+            $this->controllerNamespace = 'kbamarketing\smartproperties\console\controllers';
         }
 
         Event::on(
@@ -86,7 +84,7 @@ class SmartProperties extends Plugin
             function (Event $event) {
                 /** @var CraftVariable $variable */
                 $variable = $event->sender;
-                $variable->set('smartProperties', SmartPropertiesVariable::class);
+                $variable->set('smartProperties', Variable::class);
             }
         );
 
@@ -101,7 +99,7 @@ class SmartProperties extends Plugin
 
         Craft::info(
             Craft::t(
-                'smart-properties',
+                'smartproperties',
                 '{name} plugin loaded',
                 ['name' => $this->name]
             ),
@@ -137,7 +135,7 @@ class SmartProperties extends Plugin
 		    ClearCaches::EVENT_REGISTER_CACHE_OPTIONS,
 		    function(RegisterCacheOptionsEvent $event) {
 		        $event->options[] = [
-		            'key' => 'drink-images',
+		            'key' => 'smartproperties',
 		            'label' => \Craft::t('plugin-handle', 'SmartProperties caches'),
 		            'action' => \Craft::$app->path->getStoragePath().'/smartproperties'
 		        ];

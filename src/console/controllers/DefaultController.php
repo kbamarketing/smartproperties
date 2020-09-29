@@ -8,9 +8,7 @@
  * @copyright Copyright (c) 2020 Aduro
  */
 
-namespace KBAMarketing\SmartProperties\console\controllers;
-
-use KBAMarketing\SmartProperties\SmartProperties;
+namespace kbamarketing\smartproperties\console\controllers;
 
 use Craft;
 use yii\console\Controller;
