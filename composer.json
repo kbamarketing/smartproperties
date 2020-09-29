@@ -39,6 +39,7 @@
         "components": {
             "smartPropertiesService": "KBAMarketing\\SmartProperties\\services\\SmartPropertiesService"
         },
-        "class": "kbamarketing\\smartproperties\\SmartProperties"
+        "class": "KBAMarketing\\SmartProperties\\SmartProperties",
+        "basePath": "src/"
     }
 }
