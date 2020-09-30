@@ -26,23 +26,41 @@ class SmartProperties_PhaseModel extends SmartProperties_ContainerModel {
 	
 	protected function getProperties( \craft\elements\Entry $entry ) {
 		
+		$blocks = [];
+		
+		try {
+			
+			$blocks = array_merge($blocks, $entry->getFieldValue( 'developmentHomeTypes' )->find());
+			$blocks = array_merge($blocks, $entry->getFieldValue( 'developmentApartmentFloors' )->find());
+			
+		} catch(\Exception $e) {
+			
+			
+			
+		}
+		
 		return new Collection( array_map( function( craft\elements\MatrixBlock $block ) {
 			
 			return Property::compile( $block, $this->getAttribute('id') );
 			
-		}, array_merge( 
-			$entry->getFieldValue( 'developmentHomeTypes' )->find(),
-			$entry->getFieldValue( 'developmentApartmentFloors' )->find()
-		) ) );
+		}, $blocks ) );
 		
 	}
 	
 	protected function getFloors( \craft\elements\Entry $entry ) {
 		
-		$blocks = array_merge( 
-			$entry->getFieldValue( 'developmentFloors' )->find(),
-			$entry->getFieldValue( 'developmentApartmentFloors' )->find() 
-		);
+		$blocks = [];
+		
+		try {
+			
+			$blocks = array_merge($blocks, $entry->getFieldValue( 'developmentHomeTypes' )->find());
+			$blocks = array_merge($blocks, $entry->getFieldValue( 'developmentApartmentFloors' )->find());
+			
+		} catch(\Exception $e) {
+			
+			
+			
+		}
 		
 		$collection = new Collection();
 		

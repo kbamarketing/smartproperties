@@ -42,6 +42,14 @@ class SmartProperties_BaseModel extends Model {
 		
 	}
 	
+	protected function getAttribute($key) {
+		
+		$atts = $this->getAttributes();
+		
+		return isset($atts[$key]) ? $atts[$key] : null;
+		
+	}
+	
 	protected function getFormatter() {
 		
 		return new NumberFormatter( static::LOCALE, NumberFormatter::CURRENCY );
@@ -80,12 +88,12 @@ class SmartProperties_BaseModel extends Model {
 	
 	public function flatten()
 	{
-		$attributes = $this->getAttributes(null, true);
+		$attributes = $this->getAttributes();
 		foreach( $attributes as &$attribute ) {
 			if( $attribute instanceof SmartProperties_BaseModel ) {
 				$attribute = $attribute->flatten();
 			} else if ( $attribute instanceof Model ) {
-				$attribute = $attribute->getAttributes(null, true);
+				$attribute = $attribute->getAttributes();
 			} else if ( $attribute instanceof Collection ) {
 				$attribute = $attribute->map(function($item) {
 					if( $item instanceof SmartProperties_BaseModel ) {
