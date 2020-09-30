@@ -37,7 +37,7 @@ class Service extends Component
 		
 		$entry = $entry->getParent() ? $entry->getParent() : $entry;
 		
-		if( ( ! is_null( $use_cache ) ? $use_cache : $this->useCache() ) && ( $container = $this->getCache($entry) ) && 0 ) {
+		if( ( ! is_null( $use_cache ) ? $use_cache : $this->useCache() ) && ( $container = $this->getCache($entry) ) ) {
 			
 			return $container;
 			
