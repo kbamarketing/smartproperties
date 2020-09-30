@@ -103,5 +103,26 @@ class SmartProperties_BaseModel {
 		return $attributes;
 	}
 	
+	public function __call( $name, $parameters ) {
+		
+		preg_match('/get(.*)/', $name, $matches);
+		
+		if( $matches ) {
+			
+			$property = strtolower( $matches[1] );
+		
+			if( property_exists( $this, $property ) ) {
+				
+				return $this->$property;
+				
+			}
+			
+		} else {
+			
+			return $this->getAttribute($name);
+			
+		}
+		
+	}
 	
 }
