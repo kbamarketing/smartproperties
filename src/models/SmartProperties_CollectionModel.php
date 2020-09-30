@@ -14,6 +14,18 @@ class SmartProperties_CollectionModel extends Collection {
 		
 	}
 	
+	public function setAttribute($key, $value) {
+		
+		$this[$key] = $value;
+		
+	}
+	
+	public function getAttribute($key) {
+		
+		return $this->get($key);
+		
+	}
+	
 	public function concat( $property = null, $delimiter = ', ', $final = ' & ' ) {
 		
 		$parts = $property ? $this->pluck($property)->all() : $this->all();

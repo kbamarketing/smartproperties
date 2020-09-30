@@ -12,12 +12,6 @@ class SmartProperties_PhasedModel extends SmartProperties_ContainerModel {
 	
 	protected $priceFromLabel = 'From';
 	
-	protected function defineAttributes() {
-		return array_merge($this->attributes, array(
-			'phases' => AttributeType::Mixed
-		));
-	}
-	
 	protected function beforeCompile( \craft\elements\Entry $entry ) {
 		
 		$this->setAttribute('phases', $this->getPhases( $entry ));

@@ -12,12 +12,6 @@ use kbamarketing\smartproperties\models\AttributeType;
 
 class SmartProperties_PhaseModel extends SmartProperties_ContainerModel {
 	
-	protected function defineAttributes() {
-		return array_merge($this->attributes, array(
-			'floors' => AttributeType::Mixed
-		));
-	}
-	
 	protected function afterCompile( \craft\elements\Entry $entry ) {
 		
 		$this->setAttribute('floors', $this->getFloors( $entry ));

@@ -10,29 +10,10 @@ use kbamarketing\smartproperties\models\SmartProperties_HasBedroomsModel as HasB
 use kbamarketing\smartproperties\models\SmartProperties_HasPlotsModel as HasPlots;
 use kbamarketing\smartproperties\models\SmartProperties_PlotModel as Plot;
 use kbamarketing\smartproperties\models\SmartProperties_PropertyModel as Property;
-use kbamarketing\smartproperties\models\AttributeType;
 
 class SmartProperties_FloorModel extends SmartProperties_BaseModel {
 	
 	use HasBedrooms, HasPlots;
-	
-	protected $attributes = array(
-		'id' => AttributeType::Number,
-		'blockId' => AttributeType::Number,
-		'title' => AttributeType::String,
-		'floorplan' => AttributeType::String,
-		'image' => AttributeType::String,
-		'availableProperties' => AttributeType::Mixed,
-		'properties' => AttributeType::Mixed,
-		'availablePlots' => AttributeType::Mixed,
-		'availablePlotsHtml' => AttributeType::String,
-		'bedrooms' => AttributeType::Number,
-		'minBedrooms' => AttributeType::Number,
-		'maxBedrooms' => AttributeType::Number,
-		'hasVariatingBedrooms' => AttributeType::Bool,
-		'bedroomsHtml' => AttributeType::String,
-		'availableBedroomsHtml' => AttributeType::String
-	);
 			
 	public static function compile( craft\elements\MatrixBlock $block, Collection $plots ) {	
 		

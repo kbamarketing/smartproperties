@@ -8,32 +8,10 @@ use Craft;
 use kbamarketing\smartproperties\models\SmartProperties_HasBedroomsModel as HasBedrooms;
 use kbamarketing\smartproperties\models\SmartProperties_HasPlotsModel as HasPlots;
 use kbamarketing\smartproperties\models\SmartProperties_PlotModel as Plot;
-use kbamarketing\smartproperties\models\AttributeType;
 
 abstract class SmartProperties_ContainerModel extends SmartProperties_BaseModel {
 	
 	use HasBedrooms, HasPlots;
-	
-	protected $attributes = array(
-		'id' => AttributeType::Number,
-		'entryId' => AttributeType::Number,
-		'slug' => AttributeType::String,
-		'title' => AttributeType::String,
-		'isPhased' => AttributeType::Bool,
-		'isHtb' => AttributeType::Bool,
-		'properties' => AttributeType::Mixed,
-		'plots' => AttributeType::Mixed,
-		'hasPrices' => AttributeType::Bool,
-		'minPrice' => AttributeType::Number,
-		'maxPrice' => AttributeType::Number,
-		'minAvailableBedrooms' => AttributeType::Number,
-		'bedroomsHtml' => AttributeType::String,
-		'availableBedroomsHtml' => AttributeType::String,
-		'hasVariatingPrices' => AttributeType::Bool,
-		'priceHtml' => AttributeType::String,
-		'availabilityHtml' => AttributeType::String,
-		'isAvailable' => AttributeType::Bool
-	);
 	
 	public static function compile( \craft\elements\Entry $entry, $isChild = false ) {
 		

@@ -81,7 +81,7 @@ class Service extends Component
 	
 	protected function buildContainer( array $data ) {
 		
-		switch( $data['isPhased'] ) {
+		switch( !empty( $data['isPhased'] ) ) {
 				
 			case true :
 			
