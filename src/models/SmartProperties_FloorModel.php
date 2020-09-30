@@ -19,15 +19,15 @@ class SmartProperties_FloorModel extends SmartProperties_BaseModel {
 		
 		$floor = new static();
 		
-		$floor->setAttribute('blockId', $block->getAttribute('id'));
+		$floor->setAttribute('blockId', $block->id);
 		
 		$floor->setPrivateAttribute('plots', $plots);
 		
 		$floor->setAttribute('title', static::determineTitle( $block ));
 		$floor->setAttribute('floorplan', $floor->getPlots()->first()->getProperty('floorplan') ? $floor->getPlots()->first()->getProperty('floorplan') : null );
-		$floor->setAttribute('image', array_key_exists('image', $block->getContent()->getAttributes()) ? $block->getFieldValue('image')->first() : $floor->getAttribute('floorplan'));
-		$floor->setAttribute('availableProperties', $floor->getAvailableProperties()->map(array($floor, 'mapProperty')));
-		$floor->setAttribute('properties', $floor->getProperties()->map(array($floor, 'mapProperty')));
+		$floor->setAttribute('image', array_key_exists('image', $block->getFieldValues()) ? $block->getFieldValue('image')->first() : $floor->getAttribute('floorplan'));
+		$floor->setAttribute('availableProperties', $floor->getAvailableProperties()->map(array($floor, 'mapProperty'))->unique());
+		$floor->setAttribute('properties', $floor->getProperties()->map(array($floor, 'mapProperty'))->unique());
 		$floor->setAttribute('availablePlots', $floor->getAvailablePlots());
 		
 		$floor->setAttribute('availablePlotsHtml', $floor->getAvailablePlotsHtml());
@@ -54,21 +54,21 @@ class SmartProperties_FloorModel extends SmartProperties_BaseModel {
 	
 	protected function getProperties() {
 		
-		return (new Collection($this->getPlots()->map(function(Plot $plot) {
+		return $this->getPlots()->map(function(Plot $plot) {
 			
 			return Property::compile( $plot->getPrivateAttribute('block'), $plot->getPrivateAttribute('entryId') );
 			
-		})))->unique()->keyBy('propertyType')->sort();
+		})->keyBy('propertyType')->sort();
 		
 	}
 
 	protected function getAvailableProperties() {
 		
-		return (new Collection($this->getAvailablePlots()->map(function(Plot $plot) {
+		return $this->getAvailablePlots()->map(function(Plot $plot) {
 			
 			return Property::compile( $plot->getPrivateAttribute('block'), $plot->getPrivateAttribute('entryId') );
 			
-		})))->unique()->keyBy('propertyType')->sort();
+		})->keyBy('propertyType')->sort();
 		
 	}
 	

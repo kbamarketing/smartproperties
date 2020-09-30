@@ -19,7 +19,7 @@ trait SmartProperties_HasPlotsModel {
 	
 	protected function getPrices() {
 		
-		return $this->getPlots()->pluck( 'price' );
+		return $this->getPlots()->map( function( Plot $plot ) { return $plot->getAttribute('price'); } );
 		
 	}
 	

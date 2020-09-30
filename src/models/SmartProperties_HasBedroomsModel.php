@@ -12,13 +12,13 @@ trait SmartProperties_HasBedroomsModel {
 	
 	protected function getBedrooms() {
 		
-		return $this->getPlots()->pluck( 'numberOfBedrooms' )->filter()->unique();
+		return $this->getPlots()->map( function( Plot $plot ) { return $plot->getAttribute('numberOfBedrooms'); } )->filter()->unique();
 		
 	}
 	
 	protected function getAvailableBedrooms() {
 		
-		return $this->getAvailablePlots()->pluck( 'numberOfBedrooms' )->filter()->unique();
+		return $this->getAvailablePlots()->map( function( Plot $plot ) { return $plot->getAttribute('numberOfBedrooms'); } )->filter()->unique();
 		
 	}
 	
