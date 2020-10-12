@@ -141,7 +141,7 @@ class Plugin extends \craft\base\Plugin
 		    function(RegisterCacheOptionsEvent $event) {
 		        $event->options[] = [
 		            'key' => 'smartproperties',
-		            'label' => \Craft::t('plugin-handle', 'SmartProperties caches'),
+		            'label' => \Craft::t('smartproperties', 'SmartProperties caches'),
 		            'action' => \Craft::$app->path->getStoragePath().'/smartproperties'
 		        ];
 		    }
