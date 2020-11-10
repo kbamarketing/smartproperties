@@ -1,17 +1,35 @@
 <?php
-	
-namespace Craft;
+/**
+ * Smart Properties plugin for Craft CMS 3.x
+ *
+ * A plugin to build complex property relationships
+ *
+ * @link      https://weareaduro.com
+ * @copyright Copyright (c) 2020 Aduro
+ */
 
-use Craft\SmartProperties_ContainerModel as Container;
-use Craft\SmartProperties_PhasedModel as Phased;
-use Craft\SmartProperties_PhaseModel as Phase;
+namespace kbamarketing\smartproperties\services;
 
-class SmartPropertiesService extends BaseApplicationComponent
+use Craft;
+use craft\base\Component;
+use craft\elements\Entry as EntryModel;
+
+use kbamarketing\smartproperties\models\SmartProperties_ContainerModel as Container;
+use kbamarketing\smartproperties\models\SmartProperties_PhasedModel as Phased;
+use kbamarketing\smartproperties\models\SmartProperties_PhaseModel as Phase;
+
+use kbamarketing\smartproperties\Plugin;
+
+/**
+ * @author    Aduro
+ * @package   SmartProperties
+ * @since     1.0.2
+ */
+class Service extends Component
 {
-	
-	protected function useCache()
+    protected function useCache()
 	{
-		$settings = craft()->plugins->getPlugin('smartProperties')->getSettings();
+		$settings = Plugin::getInstance()->getSettings();
 		return $settings->spUseCache;
 	}
 	
@@ -21,7 +39,7 @@ class SmartPropertiesService extends BaseApplicationComponent
 		
 		if( ( ! is_null( $use_cache ) ? $use_cache : $this->useCache() ) && ( $container = $this->getCache($entry) ) ) {
 			
-			return $this->buildContainer( $container );
+			return $container;
 			
 		} else {
 		
@@ -33,7 +51,7 @@ class SmartPropertiesService extends BaseApplicationComponent
 				
 			}
 			
-			return $this->buildContainer( $container );
+			return $container;
 			
 		}
 		
@@ -63,7 +81,7 @@ class SmartPropertiesService extends BaseApplicationComponent
 	
 	protected function buildContainer( array $data ) {
 		
-		switch( $data['isPhased'] ) {
+		switch( !empty( $data['isPhased'] ) ) {
 				
 			case true :
 			
@@ -104,7 +122,7 @@ class SmartPropertiesService extends BaseApplicationComponent
    
         $cacheKey = $this->getCacheKey($entry);
 
-        return craft()->cache->get($cacheKey);
+        return Craft::$app->cache->get($cacheKey);
 
     }
 
@@ -112,7 +130,7 @@ class SmartPropertiesService extends BaseApplicationComponent
 
         $cacheKey = $this->getCacheKey($entry);
 
-        return craft()->cache->set($cacheKey, $data, $expire, $dependency);
+        return Craft::$app->cache->set($cacheKey, $data, $expire, $dependency);
 
     }
     
@@ -120,7 +138,7 @@ class SmartPropertiesService extends BaseApplicationComponent
 
         $cacheKey = $this->getCacheKey($entry);
 
-        return craft()->cache->deleteCachesByKey($cacheKey);
+        return Craft::$app->cache->deleteCachesByKey($cacheKey);
 
     }
 
@@ -133,5 +151,5 @@ class SmartPropertiesService extends BaseApplicationComponent
 	        $entry->id
         ]));
     }
-	
+
 }

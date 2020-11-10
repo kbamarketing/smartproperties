@@ -1,6 +1,8 @@
 <?php
 	
-namespace Craft;
+namespace kbamarketing\smartproperties\models;
+
+use Craft;
 
 use Illuminate\Support\Collection;
 
@@ -9,6 +11,18 @@ class SmartProperties_CollectionModel extends Collection {
 	public function length() {
 		
 		return $this->count();
+		
+	}
+	
+	public function setAttribute($key, $value) {
+		
+		$this[$key] = $value;
+		
+	}
+	
+	public function getAttribute($key) {
+		
+		return $this->get($key);
 		
 	}
 	

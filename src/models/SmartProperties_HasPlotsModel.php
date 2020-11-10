@@ -1,9 +1,11 @@
 <?php
 
-namespace Craft;
+namespace kbamarketing\smartproperties\models;
 
-use Craft\SmartProperties_PlotModel as Plot;
-use Craft\SmartProperties_CollectionModel as Collection;
+use Craft;
+
+use kbamarketing\smartproperties\models\SmartProperties_PlotModel as Plot;
+use kbamarketing\smartproperties\models\SmartProperties_CollectionModel as Collection;
 
 trait SmartProperties_HasPlotsModel {
 	
@@ -17,7 +19,7 @@ trait SmartProperties_HasPlotsModel {
 	
 	protected function getPrices() {
 		
-		return $this->getPlots()->pluck( 'price' );
+		return $this->getPlots()->map( function( Plot $plot ) { return $plot->getAttribute('price'); } );
 		
 	}
 	

@@ -1,37 +1,19 @@
 <?php
 
-namespace Craft;
+namespace kbamarketing\smartproperties\models;
 
-use Craft\SmartProperties_HasBedroomsModel as HasBedrooms;
-use Craft\SmartProperties_HasPlotsModel as HasPlots;
-use Craft\SmartProperties_PlotModel as Plot;
+
+use Craft;
+
+use kbamarketing\smartproperties\models\SmartProperties_HasBedroomsModel as HasBedrooms;
+use kbamarketing\smartproperties\models\SmartProperties_HasPlotsModel as HasPlots;
+use kbamarketing\smartproperties\models\SmartProperties_PlotModel as Plot;
 
 abstract class SmartProperties_ContainerModel extends SmartProperties_BaseModel {
 	
 	use HasBedrooms, HasPlots;
 	
-	protected $attributes = array(
-		'id' => AttributeType::Number,
-		'entryId' => AttributeType::Number,
-		'slug' => AttributeType::String,
-		'title' => AttributeType::String,
-		'isPhased' => AttributeType::Bool,
-		'isHtb' => AttributeType::Bool,
-		'properties' => AttributeType::Mixed,
-		'plots' => AttributeType::Mixed,
-		'hasPrices' => AttributeType::Bool,
-		'minPrice' => AttributeType::Number,
-		'maxPrice' => AttributeType::Number,
-		'minAvailableBedrooms' => AttributeType::Number,
-		'bedroomsHtml' => AttributeType::String,
-		'availableBedroomsHtml' => AttributeType::String,
-		'hasVariatingPrices' => AttributeType::Bool,
-		'priceHtml' => AttributeType::String,
-		'availabilityHtml' => AttributeType::String,
-		'isAvailable' => AttributeType::Bool
-	);
-	
-	public static function compile( EntryModel $entry, $isChild = false ) {
+	public static function compile( \craft\elements\Entry $entry, $isChild = false ) {
 		
 		$container = new static();
 		
@@ -86,19 +68,19 @@ abstract class SmartProperties_ContainerModel extends SmartProperties_BaseModel 
 		
 	}
 	
-	protected function beforeCompile( EntryModel $entry ) {
+	protected function beforeCompile( \craft\elements\Entry $entry ) {
 		
 		
 		
 	}
 	
-	protected function afterCompile( EntryModel $entry ) {
+	protected function afterCompile( \craft\elements\Entry $entry ) {
 		
 		
 		
 	}
 	
-	protected function getProperties( EntryModel $entry ) {
+	protected function getProperties( \craft\elements\Entry $entry ) {
 		
 		return [];
 		

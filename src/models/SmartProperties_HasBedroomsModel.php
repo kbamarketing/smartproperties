@@ -1,21 +1,24 @@
 <?php
 
-namespace Craft;
+namespace kbamarketing\smartproperties\models;
 
-use Craft\SmartProperties_CollectionModel as Collection;
-use Craft\SmartProperties_PlotModel as Plot;
+
+use Craft;
+
+use kbamarketing\smartproperties\models\SmartProperties_CollectionModel as Collection;
+use kbamarketing\smartproperties\models\SmartProperties_PlotModel as Plot;
 
 trait SmartProperties_HasBedroomsModel {
 	
 	protected function getBedrooms() {
 		
-		return $this->getPlots()->pluck( 'numberOfBedrooms' )->filter()->unique();
+		return $this->getPlots()->map( function( Plot $plot ) { return $plot->getAttribute('numberOfBedrooms'); } )->filter()->unique();
 		
 	}
 	
 	protected function getAvailableBedrooms() {
 		
-		return $this->getAvailablePlots()->pluck( 'numberOfBedrooms' )->filter()->unique();
+		return $this->getAvailablePlots()->map( function( Plot $plot ) { return $plot->getAttribute('numberOfBedrooms'); } )->filter()->unique();
 		
 	}
 	

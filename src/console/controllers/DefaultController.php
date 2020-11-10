@@ -1,10 +1,32 @@
 <?php
-	
-namespace Craft;
+/**
+ * Smart Properties plugin for Craft CMS 3.x
+ *
+ * A plugin to build complex property relationships
+ *
+ * @link      https://weareaduro.com
+ * @copyright Copyright (c) 2020 Aduro
+ */
 
-class SmartPropertiesCommand extends BaseCommand {
-	
-	public function actionCache( $entry_id = null ) {
+namespace kbamarketing\smartproperties\console\controllers;
+
+use Craft;
+use yii\console\Controller;
+use yii\helpers\Console;
+
+/**
+ * Default Command
+ *
+ * @author    Aduro
+ * @package   SmartProperties
+ * @since     1.0.2
+ */
+class DefaultController extends Controller
+{
+    // Public Methods
+    // =========================================================================
+
+    public function actionCache( $entry_id = null ) {
 		
 		if( $entry_id ) {
 			
@@ -41,7 +63,4 @@ class SmartPropertiesCommand extends BaseCommand {
 		echo "Cached Properties for Entry #{$container->entryId}!\n";
 		
 	}
-
 }
-
-?>

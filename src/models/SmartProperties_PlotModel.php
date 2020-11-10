@@ -1,10 +1,11 @@
 <?php
 
-namespace Craft;
+namespace kbamarketing\smartproperties\models;
 
-use Craft\SmartProperties_CollectionModel as Collection;
-use Craft\SmartProperties_FlexibleModel as FlexibleModel;
-use Craft\SmartProperties_PropertyModel as Property;
+use Craft;
+
+use kbamarketing\smartproperties\models\SmartProperties_CollectionModel as Collection;
+use kbamarketing\smartproperties\models\SmartProperties_PropertyModel as Property;
 
 class SmartProperties_PlotModel extends SmartProperties_BaseModel {
 	
@@ -20,28 +21,6 @@ class SmartProperties_PlotModel extends SmartProperties_BaseModel {
 	const APARTMENT_LABEL = 'Apartment';
 	const GROUND_FLOOR_LABEL = 'Ground';
 	
-	protected $attributes = array(
-		'id' => AttributeType::Number,
-		'blockId' => AttributeType::Number,
-		'entryId' => AttributeType::Number,
-		'title' => AttributeType::String,
-		'propertyType' => AttributeType::String,
-		'propertyId' => AttributeType::Number,
-		'data' => AttributeType::Mixed,
-		'floor' => AttributeType::String,
-		'colour' => AttributeType::String,
-		'numberOfBedrooms' => AttributeType::Number,
-		'price' => AttributeType::Number,
-		'formattedPrice' => AttributeType::String,
-		'hidden' => AttributeType::Bool,
-		'isAvailable' => AttributeType::Bool,
-		'toBeReleased' => AttributeType::Bool,
-		'hasDimensions' => AttributeType::Bool,
-		'dimensions' => AttributeType::Mixed,
-		'hasFloorplan' => AttributeType::Bool,
-		'isStudio' => AttributeType::Bool
-	);
-	
 	public static function compile( array $data, Property $property ) {
 		
 		$plot = new static();
@@ -49,19 +28,19 @@ class SmartProperties_PlotModel extends SmartProperties_BaseModel {
 		$plot->setPrivateAttribute('block', $property->getPrivateAttribute('block'));
 		$plot->setPrivateAttribute('floorplan', $property->getAttribute('floorplan'));
 		
-		$data = new FlexibleModel($data);
+		$data = new Collection($data);
 		
 		$plot->setAttribute('data', $data);
-		$plot->setAttribute('id', $data->getAttribute('plotNumber'));
+		$plot->setAttribute('id', $data->get('plotNumber'));
 		$plot->setAttribute('blockId', $property->getAttribute('blockId'));
 		$plot->setAttribute('entryId', $property->getAttribute('entryId'));
 		$plot->setAttribute('title', $property->getAttribute('title'));
 		$plot->setAttribute('propertyType', $property->getAttribute('propertyType'));
 		$plot->setAttribute('propertyId', $property->getAttribute('id'));
-		$plot->setAttribute('floor', $data->getAttribute('floor') ? $data->getAttribute('floor') : ( $property->getAttribute('propertyType') == 'Apartment' ? $property->getAttribute('title') : 'ground' ));
-		$plot->setAttribute('colour', $data->getAttribute('colour') ? $data->getAttribute('colour') : $property->getAttribute('colour'));
+		$plot->setAttribute('floor', $data->get('floor') ? $data->get('floor') : ( $property->getAttribute('propertyType') == 'Apartment' ? $property->getAttribute('title') : 'ground' ));
+		$plot->setAttribute('colour', $data->get('colour') ? $data->get('colour') : $property->getAttribute('colour'));
 		$plot->setAttribute('isStudio', $property->getAttribute('defaultBedrooms') == static::STUDIO_LABEL);
-		$plot->setAttribute('hidden', $data->getAttribute('hidden') ? true : false);
+		$plot->setAttribute('hidden', $data->get('hidden') ? true : false);
 		
 		$bedrooms = $plot->getAttribute('data')->getAttribute('numberOfBedrooms');
 		$plot->setAttribute('numberOfBedrooms', is_numeric( $bedrooms ) ? $bedrooms : max($property->getAttribute('defaultBedrooms'), 1));
