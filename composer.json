@@ -3,6 +3,7 @@
     "description": "A plugin to build complex property relationships",
     "type": "craft-plugin",
     "version": "1.0.2",
+    "license": "MIT",
     "keywords": [
         "craft",
         "cms",
